@@ -22,10 +22,15 @@ CommitGitInfo _$CommitGitInfoFromJson(Map<String, dynamic> json) =>
 
 abstract class _$CommitGitInfoSerializerMixin {
   String get message;
+
   String get url;
+
   int get commentCount;
+
   CommitGitUser get author;
+
   CommitGitUser get committer;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'message': message,
         'url': url,

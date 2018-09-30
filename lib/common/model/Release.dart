@@ -53,5 +53,6 @@ class Release extends Object with _$ReleaseSerializerMixin {
     this.assets,
   );
 
-  factory Release.fromJson(Map<String, dynamic> json) => _$ReleaseFromJson(json);
+  factory Release.fromJson(Map<String, dynamic> json) =>
+      _$ReleaseFromJson(json);
 }

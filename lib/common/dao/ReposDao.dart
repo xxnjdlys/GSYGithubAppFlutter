@@ -47,10 +47,12 @@ class ReposDao {
    * @param since 数据时长， 本日，本周，本月
    * @param languageType 语言
    */
-  static getTrendDao(Store store, {since = 'daily', languageType, page = 0, needDb = true}) async {
+  static getTrendDao(Store store,
+      {since = 'daily', languageType, page = 0, needDb = true}) async {
     TrendRepositoryDbProvider provider = new TrendRepositoryDbProvider();
     String languageTypeDb = languageType ?? "*";
-    List<TrendingRepoModel> list = await provider.getData(languageTypeDb, since);
+    List<TrendingRepoModel> list =
+        await provider.getData(languageTypeDb, since);
     if (list != null && list.length > 0) {
       store.dispatch(new RefreshTrendAction(list));
     }
@@ -79,27 +81,32 @@ class ReposDao {
   /**
    * 仓库的详情数据
    */
-  static getRepositoryDetailDao(userName, reposName, branch, {needDb = true}) async {
+  static getRepositoryDetailDao(userName, reposName, branch,
+      {needDb = true}) async {
     String fullName = userName + "/" + reposName;
     RepositoryDetailDbProvider provider = new RepositoryDetailDbProvider();
 
     next() async {
-      String url = Address.getReposDetail(userName, reposName) + "?ref=" + branch;
-      var res = await HttpManager.netFetch(url, null, {"Accept": 'application/vnd.github.mercy-preview+json'}, null);
+      String url =
+          Address.getReposDetail(userName, reposName) + "?ref=" + branch;
+      var res = await HttpManager.netFetch(url, null,
+          {"Accept": 'application/vnd.github.mercy-preview+json'}, null);
       if (res != null && res.result && res.data.length > 0) {
         var data = res.data;
         if (data == null || data.length == 0) {
           return new DataResult(null, false);
         }
         Repository repository = Repository.fromJson(data);
-        var issueResult = await ReposDao.getRepositoryIssueStatusDao(userName, reposName);
+        var issueResult =
+            await ReposDao.getRepositoryIssueStatusDao(userName, reposName);
         if (issueResult != null && issueResult.result) {
           repository.allIssueCount = int.parse(issueResult.data);
         }
         if (needDb) {
           provider.insert(fullName, json.encode(repository.toJson()));
         }
-        saveHistoryDao(fullName, DateTime.now(), json.encode(repository.toJson()));
+        saveHistoryDao(
+            fullName, DateTime.now(), json.encode(repository.toJson()));
         return new DataResult(repository, true);
       } else {
         return new DataResult(null, false);
@@ -120,12 +127,14 @@ class ReposDao {
   /**
    * 仓库活动事件
    */
-  static getRepositoryEventDao(userName, reposName, {page = 0, branch = "master", needDb = false}) async {
+  static getRepositoryEventDao(userName, reposName,
+      {page = 0, branch = "master", needDb = false}) async {
     String fullName = userName + "/" + reposName;
     RepositoryEventDbProvider provider = new RepositoryEventDbProvider();
 
     next() async {
-      String url = Address.getReposEvent(userName, reposName) + Address.getPageParams("?", page);
+      String url = Address.getReposEvent(userName, reposName) +
+          Address.getPageParams("?", page);
       var res = await HttpManager.netFetch(url, null, null, null);
       if (res != null && res.result) {
         List<Event> list = new List();
@@ -162,8 +171,12 @@ class ReposDao {
   static getRepositoryStatusDao(userName, reposName) async {
     String urls = Address.resolveStarRepos(userName, reposName);
     String urlw = Address.resolveWatcherRepos(userName, reposName);
-    var resS = await HttpManager.netFetch(urls, null, null, new Options(contentType: ContentType.text), noTip: true);
-    var resW = await HttpManager.netFetch(urlw, null, null, new Options(contentType: ContentType.text), noTip: true);
+    var resS = await HttpManager.netFetch(
+        urls, null, null, new Options(contentType: ContentType.text),
+        noTip: true);
+    var resW = await HttpManager.netFetch(
+        urlw, null, null, new Options(contentType: ContentType.text),
+        noTip: true);
     var data = {"star": resS.result, "watch": resW.result};
     return new DataResult(data, true);
   }
@@ -171,13 +184,17 @@ class ReposDao {
   /**
    * 获取仓库的提交列表
    */
-  static getReposCommitsDao(userName, reposName, {page = 0, branch = "master", needDb = false}) async {
+  static getReposCommitsDao(userName, reposName,
+      {page = 0, branch = "master", needDb = false}) async {
     String fullName = userName + "/" + reposName;
 
     RepositoryCommitsDbProvider provider = new RepositoryCommitsDbProvider();
 
     next() async {
-      String url = Address.getReposCommits(userName, reposName) + Address.getPageParams("?", page) + "&sha=" + branch;
+      String url = Address.getReposCommits(userName, reposName) +
+          Address.getPageParams("?", page) +
+          "&sha=" +
+          branch;
       var res = await HttpManager.netFetch(url, null, null, null);
       if (res != null && res.result) {
         List<RepoCommit> list = new List();
@@ -211,13 +228,16 @@ class ReposDao {
   /***
    * 获取仓库的文件列表
    */
-  static getReposFileDirDao(userName, reposName, {path = '', branch, text = false, isHtml = false}) async {
+  static getReposFileDirDao(userName, reposName,
+      {path = '', branch, text = false, isHtml = false}) async {
     String url = Address.reposDataDir(userName, reposName, path, branch);
     var res = await HttpManager.netFetch(
       url,
       null,
       //text ? {"Accept": 'application/vnd.github.VERSION.raw'} : {"Accept": 'application/vnd.github.html'},
-      isHtml ? {"Accept": 'application/vnd.github.html'} : {"Accept": 'application/vnd.github.VERSION.raw'},
+      isHtml
+          ? {"Accept": 'application/vnd.github.html'}
+          : {"Accept": 'application/vnd.github.VERSION.raw'},
       new Options(contentType: text ? ContentType.text : ContentType.json),
     );
     if (res != null && res.result) {
@@ -250,9 +270,15 @@ class ReposDao {
   /**
    * star仓库
    */
-  static Future<DataResult> doRepositoryStarDao(userName, reposName, star) async {
+  static Future<DataResult> doRepositoryStarDao(
+      userName, reposName, star) async {
     String url = Address.resolveStarRepos(userName, reposName);
-    var res = await HttpManager.netFetch(url, null, null, new Options(method: !star ? 'PUT' : 'DELETE', contentType: ContentType.text));
+    var res = await HttpManager.netFetch(
+        url,
+        null,
+        null,
+        new Options(
+            method: !star ? 'PUT' : 'DELETE', contentType: ContentType.text));
     return Future<DataResult>(() {
       return new DataResult(null, res.result);
     });
@@ -263,19 +289,26 @@ class ReposDao {
    */
   static doRepositoryWatchDao(userName, reposName, watch) async {
     String url = Address.resolveWatcherRepos(userName, reposName);
-    var res = await HttpManager.netFetch(url, null, null, new Options(method: !watch ? 'PUT' : 'DELETE', contentType: ContentType.text));
+    var res = await HttpManager.netFetch(
+        url,
+        null,
+        null,
+        new Options(
+            method: !watch ? 'PUT' : 'DELETE', contentType: ContentType.text));
     return new DataResult(null, res.result);
   }
 
   /**
    * 获取当前仓库所有订阅用户
    */
-  static getRepositoryWatcherDao(userName, reposName, page, {needDb = false}) async {
+  static getRepositoryWatcherDao(userName, reposName, page,
+      {needDb = false}) async {
     String fullName = userName + "/" + reposName;
     RepositoryWatcherDbProvider provider = new RepositoryWatcherDbProvider();
 
     next() async {
-      String url = Address.getReposWatcher(userName, reposName) + Address.getPageParams("?", page);
+      String url = Address.getReposWatcher(userName, reposName) +
+          Address.getPageParams("?", page);
       var res = await HttpManager.netFetch(url, null, null, null);
       if (res != null && res.result) {
         List<User> list = new List();
@@ -309,11 +342,13 @@ class ReposDao {
   /**
    * 获取当前仓库所有star用户
    */
-  static getRepositoryStarDao(userName, reposName, page, {needDb = false}) async {
+  static getRepositoryStarDao(userName, reposName, page,
+      {needDb = false}) async {
     String fullName = userName + "/" + reposName;
     RepositoryStarDbProvider provider = new RepositoryStarDbProvider();
     next() async {
-      String url = Address.getReposStar(userName, reposName) + Address.getPageParams("?", page);
+      String url = Address.getReposStar(userName, reposName) +
+          Address.getPageParams("?", page);
       var res = await HttpManager.netFetch(url, null, null, null);
       if (res != null && res.result) {
         List<User> list = new List();
@@ -347,11 +382,13 @@ class ReposDao {
   /**
    * 获取仓库的fork分支
    */
-  static getRepositoryForksDao(userName, reposName, page, {needDb = false}) async {
+  static getRepositoryForksDao(userName, reposName, page,
+      {needDb = false}) async {
     String fullName = userName + "/" + reposName;
     RepositoryForkDbProvider provider = new RepositoryForkDbProvider();
     next() async {
-      String url = Address.getReposForks(userName, reposName) + Address.getPageParams("?", page);
+      String url = Address.getReposForks(userName, reposName) +
+          Address.getPageParams("?", page);
       var res = await HttpManager.netFetch(url, null, null, null);
       if (res != null && res.result && res.data.length > 0) {
         List<Repository> list = new List();
@@ -389,7 +426,8 @@ class ReposDao {
   static getStarRepositoryDao(userName, page, sort, {needDb = false}) async {
     UserStaredDbProvider provider = new UserStaredDbProvider();
     next() async {
-      String url = Address.userStar(userName, sort) + Address.getPageParams("&", page);
+      String url =
+          Address.userStar(userName, sort) + Address.getPageParams("&", page);
       var res = await HttpManager.netFetch(url, null, null, null);
       if (res != null && res.result && res.data.length > 0) {
         List<Repository> list = new List();
@@ -427,7 +465,8 @@ class ReposDao {
   static getUserRepositoryDao(userName, page, sort, {needDb = false}) async {
     UserReposDbProvider provider = new UserReposDbProvider();
     next() async {
-      String url = Address.userRepos(userName, sort) + Address.getPageParams("&", page);
+      String url =
+          Address.userRepos(userName, sort) + Address.getPageParams("&", page);
       var res = await HttpManager.netFetch(url, null, null, null);
       if (res != null && res.result && res.data.length > 0) {
         List<Repository> list = new List();
@@ -464,7 +503,8 @@ class ReposDao {
    */
   static createForkDao(userName, reposName) async {
     String url = Address.createFork(userName, reposName);
-    var res = await HttpManager.netFetch(url, null, null, new Options(method: "POST", contentType: ContentType.text));
+    var res = await HttpManager.netFetch(url, null, null,
+        new Options(method: "POST", contentType: ContentType.text));
     return new DataResult(null, res.result);
   }
 
@@ -510,13 +550,19 @@ class ReposDao {
   /**
    * 详情的remde数据
    */
-  static getRepositoryDetailReadmeDao(userName, reposName, branch, {needDb = true}) async {
+  static getRepositoryDetailReadmeDao(userName, reposName, branch,
+      {needDb = true}) async {
     String fullName = userName + "/" + reposName;
-    RepositoryDetailReadmeDbProvider provider = new RepositoryDetailReadmeDbProvider();
+    RepositoryDetailReadmeDbProvider provider =
+        new RepositoryDetailReadmeDbProvider();
 
     next() async {
       String url = Address.readmeFile(userName + '/' + reposName, branch);
-      var res = await HttpManager.netFetch(url, null, {"Accept": 'application/vnd.github.VERSION.raw'}, new Options(contentType: ContentType.text));
+      var res = await HttpManager.netFetch(
+          url,
+          null,
+          {"Accept": 'application/vnd.github.VERSION.raw'},
+          new Options(contentType: ContentType.text));
       //var res = await HttpManager.netFetch(url, null, {"Accept": 'application/vnd.github.html'}, new Options(contentType: ContentType.text));
       if (res != null && res.result) {
         if (needDb) {
@@ -547,7 +593,8 @@ class ReposDao {
    * @param page
    * @param pageSize
    */
-  static searchRepositoryDao(q, language, sort, order, type, page, pageSize) async {
+  static searchRepositoryDao(
+      q, language, sort, order, type, page, pageSize) async {
     if (language != null) {
       q = q + "%2Blanguage%3A$language";
     }
@@ -602,17 +649,23 @@ class ReposDao {
   /**
    * 获取仓库的release列表
    */
-  static getRepositoryReleaseDao(userName, reposName, page, {needHtml = true, release = true}) async {
+  static getRepositoryReleaseDao(userName, reposName, page,
+      {needHtml = true, release = true}) async {
     String url = release
-        ? Address.getReposRelease(userName, reposName) + Address.getPageParams("?", page)
-        : Address.getReposTag(userName, reposName) + Address.getPageParams("?", page);
+        ? Address.getReposRelease(userName, reposName) +
+            Address.getPageParams("?", page)
+        : Address.getReposTag(userName, reposName) +
+            Address.getPageParams("?", page);
 
     var res = await HttpManager.netFetch(
         url,
         null,
-        {"Accept": (needHtml ? 'application/vnd.github.html,application/vnd.github.VERSION.raw' : "")},
-        null
-    );
+        {
+          "Accept": (needHtml
+              ? 'application/vnd.github.html,application/vnd.github.VERSION.raw'
+              : "")
+        },
+        null);
     if (res != null && res.result && res.data.length > 0) {
       List<Release> list = new List();
       var dataList = res.data;
@@ -637,7 +690,8 @@ class ReposDao {
     if (Platform.isIOS) {
       return;
     }
-    var res = await getRepositoryReleaseDao("CarGuo", 'GSYGithubAppFlutter', 1, needHtml: false);
+    var res = await getRepositoryReleaseDao("CarGuo", 'GSYGithubAppFlutter', 1,
+        needHtml: false);
     if (res != null && res.result && res.data.length > 0) {
       Release release = res.data[0];
       String versionName = release.name;
@@ -653,15 +707,21 @@ class ReposDao {
         Version currentNum = Version.parse(appVersion);
         int result = versionNameNum.compareTo(currentNum);
         if (Config.DEBUG) {
-          print("versionNameNum " + versionNameNum.toString() + " currentNum " + currentNum.toString());
+          print("versionNameNum " +
+              versionNameNum.toString() +
+              " currentNum " +
+              currentNum.toString());
         }
         if (Config.DEBUG) {
           print("newsHad " + result.toString());
         }
         if (result > 0) {
-          CommonUtils.showUpdateDialog(context, release.name + ": " + release.body);
+          CommonUtils.showUpdateDialog(
+              context, release.name + ": " + release.body);
         } else {
-          if (showTip) Fluttertoast.showToast(msg: CommonUtils.getLocale(context).app_not_new_version);
+          if (showTip)
+            Fluttertoast.showToast(
+                msg: CommonUtils.getLocale(context).app_not_new_version);
         }
       }
     }
@@ -671,7 +731,8 @@ class ReposDao {
    * 获取issue总数
    */
   static getRepositoryIssueStatusDao(userName, repository) async {
-    String url = Address.getReposIssue(userName, repository, null, null, null) + "&per_page=1";
+    String url = Address.getReposIssue(userName, repository, null, null, null) +
+        "&per_page=1";
     var res = await HttpManager.netFetch(url, null, null, null);
     if (res != null && res.result && res.headers != null) {
       try {
@@ -695,9 +756,12 @@ class ReposDao {
    * 搜索话题
    */
   static searchTopicRepositoryDao(searchTopic, {page = 0}) async {
-    String url = Address.searchTopic(searchTopic) + Address.getPageParams("&", page);
+    String url =
+        Address.searchTopic(searchTopic) + Address.getPageParams("&", page);
     var res = await HttpManager.netFetch(url, null, null, null);
-    var data = (res.data != null && res.data["items"] != null) ? res.data["items"] : res.data;
+    var data = (res.data != null && res.data["items"] != null)
+        ? res.data["items"]
+        : res.data;
     if (res != null && res.result && data != null && data.length > 0) {
       List<Repository> list = new List();
       var dataList = data;
@@ -713,8 +777,6 @@ class ReposDao {
       return new DataResult(null, false);
     }
   }
-
-
 
   /**
    * 获取阅读历史

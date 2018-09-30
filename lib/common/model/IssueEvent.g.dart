@@ -25,14 +25,23 @@ IssueEvent _$IssueEventFromJson(Map<String, dynamic> json) => new IssueEvent(
 
 abstract class _$IssueEventSerializerMixin {
   int get id;
+
   User get user;
+
   DateTime get createdAt;
+
   DateTime get updatedAt;
+
   String get authorAssociation;
+
   String get body;
+
   String get bodyHtml;
+
   String get type;
+
   String get htmlUrl;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'user': user,

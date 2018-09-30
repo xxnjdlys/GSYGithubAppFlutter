@@ -15,5 +15,6 @@ class CommitGitUser extends Object with _$CommitGitUserSerializerMixin {
 
   CommitGitUser(this.name, this.email, this.date);
 
-  factory CommitGitUser.fromJson(Map<String, dynamic> json) => _$CommitGitUserFromJson(json);
+  factory CommitGitUser.fromJson(Map<String, dynamic> json) =>
+      _$CommitGitUserFromJson(json);
 }

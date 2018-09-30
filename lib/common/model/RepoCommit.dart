@@ -34,5 +34,6 @@ class RepoCommit extends Object with _$RepoCommitSerializerMixin {
     this.parents,
   );
 
-  factory RepoCommit.fromJson(Map<String, dynamic> json) => _$RepoCommitFromJson(json);
+  factory RepoCommit.fromJson(Map<String, dynamic> json) =>
+      _$RepoCommitFromJson(json);
 }

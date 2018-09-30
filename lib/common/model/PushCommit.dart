@@ -43,5 +43,6 @@ class PushCommit extends Object with _$PushCommitSerializerMixin {
     this.parents,
   );
 
-  factory PushCommit.fromJson(Map<String, dynamic> json) => _$PushCommitFromJson(json);
+  factory PushCommit.fromJson(Map<String, dynamic> json) =>
+      _$PushCommitFromJson(json);
 }

@@ -10,11 +10,9 @@ import 'package:gsy_github_app_flutter/widget/GSYSearchInputWidget.dart';
 import 'package:gsy_github_app_flutter/widget/IssueItem.dart';
 import 'package:gsy_github_app_flutter/widget/GSYSelectItemWidget.dart';
 
-/**
- * 仓库详情issue列表
- * Created by guoshuyu
- * Date: 2018-07-19
- */
+/// 仓库详情issue列表
+/// Created by guoshuyu
+/// Date: 2018-07-19
 class RepositoryDetailIssuePage extends StatefulWidget {
   final String userName;
 
@@ -23,11 +21,13 @@ class RepositoryDetailIssuePage extends StatefulWidget {
   RepositoryDetailIssuePage(this.userName, this.reposName);
 
   @override
-  _RepositoryDetailIssuePageState createState() => _RepositoryDetailIssuePageState(userName, reposName);
+  _RepositoryDetailIssuePageState createState() =>
+      _RepositoryDetailIssuePageState(userName, reposName);
 }
 
 // ignore: mixin_inherits_from_not_object
-class _RepositoryDetailIssuePageState extends GSYListState<RepositoryDetailIssuePage> {
+class _RepositoryDetailIssuePageState
+    extends GSYListState<RepositoryDetailIssuePage> {
   final String userName;
 
   final String reposName;
@@ -39,11 +39,13 @@ class _RepositoryDetailIssuePageState extends GSYListState<RepositoryDetailIssue
   _RepositoryDetailIssuePageState(this.userName, this.reposName);
 
   _renderEventItem(index) {
-    IssueItemViewModel issueItemViewModel = IssueItemViewModel.fromMap(pullLoadWidgetControl.dataList[index]);
+    IssueItemViewModel issueItemViewModel =
+        IssueItemViewModel.fromMap(pullLoadWidgetControl.dataList[index]);
     return new IssueItem(
       issueItemViewModel,
       onPressed: () {
-        NavigatorUtils.goIssueDetail(context, userName, reposName, issueItemViewModel.number);
+        NavigatorUtils.goIssueDetail(
+            context, userName, reposName, issueItemViewModel.number);
       },
     );
   }
@@ -66,35 +68,49 @@ class _RepositoryDetailIssuePageState extends GSYListState<RepositoryDetailIssue
 
   _getDataLogic(String searchString) async {
     if (searchString == null || searchString.trim().length == 0) {
-      return await IssueDao.getRepositoryIssueDao(userName, reposName, issueState, page: page, needDb: page <= 1);
+      return await IssueDao.getRepositoryIssueDao(
+          userName, reposName, issueState,
+          page: page, needDb: page <= 1);
     }
-    return await IssueDao.searchRepositoryIssue(searchString, userName, reposName, this.issueState, page: this.page);
+    return await IssueDao.searchRepositoryIssue(
+        searchString, userName, reposName, this.issueState,
+        page: this.page);
   }
 
   _createIssue() {
     String title = "";
     String content = "";
-    CommonUtils.showEditDialog(context, CommonUtils.getLocale(context).issue_edit_issue, (titleValue) {
+    CommonUtils.showEditDialog(
+        context, CommonUtils.getLocale(context).issue_edit_issue, (titleValue) {
       title = titleValue;
     }, (contentValue) {
       content = contentValue;
     }, () {
       if (title == null || title.trim().length == 0) {
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).issue_edit_issue_title_not_be_null);
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context)
+                .issue_edit_issue_title_not_be_null);
         return;
       }
       if (content == null || content.trim().length == 0) {
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).issue_edit_issue_content_not_be_null);
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context)
+                .issue_edit_issue_content_not_be_null);
         return;
       }
       CommonUtils.showLoadingDialog(context);
       //提交修改
-      IssueDao.createIssueDao(userName, reposName, {"title": title, "body": content}).then((result) {
+      IssueDao.createIssueDao(
+              userName, reposName, {"title": title, "body": content})
+          .then((result) {
         showRefreshLoading();
         Navigator.pop(context);
         Navigator.pop(context);
       });
-    }, needTitle: true, titleController: new TextEditingController(), valueController: new TextEditingController());
+    },
+        needTitle: true,
+        titleController: new TextEditingController(),
+        valueController: new TextEditingController());
   }
 
   @override

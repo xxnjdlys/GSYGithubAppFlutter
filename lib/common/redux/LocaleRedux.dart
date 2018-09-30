@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
@@ -22,5 +21,3 @@ class RefreshLocaleAction {
 
   RefreshLocaleAction(this.locale);
 }
-
-

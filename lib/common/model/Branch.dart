@@ -14,7 +14,6 @@ class Branch extends Object with _$BranchSerializerMixin {
   @JsonKey(name: "zipball_url")
   String zipballUrl;
   @JsonKey(name: "tarball_url")
-
   bool isBranch = true;
 
   Branch(this.name, this.isBranch, this.tarballUrl, this.zipballUrl);

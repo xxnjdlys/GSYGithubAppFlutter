@@ -136,7 +136,8 @@ class Repository extends Object with _$RepositorySerializerMixin {
   /// A necessary factory constructor for creating a new User instance
   /// from a map. We pass the map to the generated _$UserFromJson constructor.
   /// The constructor is named after the source class, in this case User.
-  factory Repository.fromJson(Map<String, dynamic> json) => _$RepositoryFromJson(json);
+  factory Repository.fromJson(Map<String, dynamic> json) =>
+      _$RepositoryFromJson(json);
 
   Repository.empty();
 }

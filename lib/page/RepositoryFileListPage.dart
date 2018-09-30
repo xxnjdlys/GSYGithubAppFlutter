@@ -12,11 +12,9 @@ import 'package:gsy_github_app_flutter/widget/GSYCardItem.dart';
 import 'package:gsy_github_app_flutter/widget/GSYListState.dart';
 import 'package:gsy_github_app_flutter/widget/GSYPullLoadWidget.dart';
 
-/**
- * 仓库文件列表
- * Created by guoshuyu
- * on 2018/7/20.
- */
+/// 仓库文件列表
+/// Created by guoshuyu
+/// on 2018/7/20.
 
 class RepositoryDetailFileListPage extends StatefulWidget {
   final String userName;
@@ -25,14 +23,20 @@ class RepositoryDetailFileListPage extends StatefulWidget {
 
   final ReposDetailParentControl reposDetailParentControl;
 
-  RepositoryDetailFileListPage(this.userName, this.reposName, this.reposDetailParentControl, {Key key}) : super(key: key);
+  RepositoryDetailFileListPage(
+      this.userName, this.reposName, this.reposDetailParentControl,
+      {Key key})
+      : super(key: key);
 
   @override
-  RepositoryDetailFileListPageState createState() => RepositoryDetailFileListPageState(userName, reposName, reposDetailParentControl);
+  RepositoryDetailFileListPageState createState() =>
+      RepositoryDetailFileListPageState(
+          userName, reposName, reposDetailParentControl);
 }
 
 // ignore: mixin_inherits_from_not_object
-class RepositoryDetailFileListPageState extends GSYListState<RepositoryDetailFileListPage> {
+class RepositoryDetailFileListPageState
+    extends GSYListState<RepositoryDetailFileListPage> {
   final String userName;
 
   final String reposName;
@@ -46,17 +50,24 @@ class RepositoryDetailFileListPageState extends GSYListState<RepositoryDetailFil
 
   List<String> headerList = ["."];
 
-  RepositoryDetailFileListPageState(this.userName, this.reposName, this.reposDetailParentControl);
+  RepositoryDetailFileListPageState(
+      this.userName, this.reposName, this.reposDetailParentControl);
 
   ///渲染文件item
   _renderEventItem(index) {
-    FileItemViewModel fileItemViewModel = FileItemViewModel.fromMap(pullLoadWidgetControl.dataList[index]);
-    IconData iconData = (fileItemViewModel.type == "file") ? GSYICons.REPOS_ITEM_FILE : GSYICons.REPOS_ITEM_DIR;
-    Widget trailing = (fileItemViewModel.type == "file") ? null : new Icon(GSYICons.REPOS_ITEM_NEXT, size: 12.0);
+    FileItemViewModel fileItemViewModel =
+        FileItemViewModel.fromMap(pullLoadWidgetControl.dataList[index]);
+    IconData iconData = (fileItemViewModel.type == "file")
+        ? GSYICons.REPOS_ITEM_FILE
+        : GSYICons.REPOS_ITEM_DIR;
+    Widget trailing = (fileItemViewModel.type == "file")
+        ? null
+        : new Icon(GSYICons.REPOS_ITEM_NEXT, size: 12.0);
     return new GSYCardItem(
       margin: EdgeInsets.only(left: 10.0, top: 5.0, right: 10.0, bottom: 5.0),
       child: new ListTile(
-        title: new Text(fileItemViewModel.name, style: GSYConstant.smallSubText),
+        title:
+            new Text(fileItemViewModel.name, style: GSYConstant.smallSubText),
         leading: new Icon(
           iconData,
           size: 16.0,
@@ -82,7 +93,8 @@ class RepositoryDetailFileListPageState extends GSYListState<RepositoryDetailFil
             onPressed: () {
               _resolveHeaderClick(index);
             },
-            child: new Text(headerList[index] + " > ", style: GSYConstant.smallText),
+            child: new Text(headerList[index] + " > ",
+                style: GSYConstant.smallText),
           );
         },
         itemCount: headerList.length,
@@ -92,7 +104,7 @@ class RepositoryDetailFileListPageState extends GSYListState<RepositoryDetailFil
 
   ///头部列表点击
   _resolveHeaderClick(index) {
-    if(isLoading) {
+    if (isLoading) {
       Fluttertoast.showToast(msg: CommonUtils.getLocale(context).loading_text);
       return;
     }
@@ -116,8 +128,9 @@ class RepositoryDetailFileListPageState extends GSYListState<RepositoryDetailFil
   ///item文件列表点击
   _resolveItemClick(FileItemViewModel fileItemViewModel) {
     if (fileItemViewModel.type == "dir") {
-      if(isLoading) {
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).loading_text);
+      if (isLoading) {
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context).loading_text);
         return;
       }
       this.setState(() {
@@ -129,9 +142,12 @@ class RepositoryDetailFileListPageState extends GSYListState<RepositoryDetailFil
       });
       this.showRefreshLoading();
     } else {
-      String path = headerList.sublist(1, headerList.length).join("/") + "/" + fileItemViewModel.name;
+      String path = headerList.sublist(1, headerList.length).join("/") +
+          "/" +
+          fileItemViewModel.name;
       if (CommonUtils.isImageEnd(fileItemViewModel.name)) {
-        NavigatorUtils.gotoPhotoViewPage(context, fileItemViewModel.htmlUrl + "?raw=true");
+        NavigatorUtils.gotoPhotoViewPage(
+            context, fileItemViewModel.htmlUrl + "?raw=true");
       } else {
         NavigatorUtils.gotoCodeDetailPlatform(
           context,
@@ -146,7 +162,8 @@ class RepositoryDetailFileListPageState extends GSYListState<RepositoryDetailFil
   }
 
   _getDataLogic(String searchString) async {
-    return await ReposDao.getReposFileDirDao(userName, reposName, path: path, branch: reposDetailParentControl.currentBranch);
+    return await ReposDao.getReposFileDirDao(userName, reposName,
+        path: path, branch: reposDetailParentControl.currentBranch);
   }
 
   /// 返回按键逻辑

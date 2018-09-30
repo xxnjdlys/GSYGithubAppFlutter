@@ -36,20 +36,35 @@ EventPayload _$EventPayloadFromJson(Map<String, dynamic> json) =>
 
 abstract class _$EventPayloadSerializerMixin {
   int get pushId;
+
   int get size;
+
   int get distinctSize;
+
   String get ref;
+
   String get head;
+
   String get before;
+
   List<PushEventCommit> get commits;
+
   String get action;
+
   String get refType;
+
   String get masterBranch;
+
   String get description;
+
   String get pusherType;
+
   Release get release;
+
   Issue get issue;
+
   IssueEvent get comment;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'push_id': pushId,
         'size': size,

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:event_bus/event_bus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gsy_github_app_flutter/common/event/HttpErrorEvent.dart';
@@ -27,15 +26,16 @@ class FlutterReduxApp extends StatelessWidget {
   /// initialState 初始化 State
   final store = new Store<GSYState>(
     appReducer,
+
     ///初始化数据
     initialState: new GSYState(
         userInfo: User.empty(),
         eventList: new List(),
         trendList: new List(),
         themeData: new ThemeData(
-          primarySwatch: GSYColors.primarySwatch,
-          platform: TargetPlatform.iOS//滑动返回
-        ),
+            primarySwatch: GSYColors.primarySwatch,
+            platform: TargetPlatform.iOS //滑动返回
+            ),
         locale: Locale('zh', 'CH')),
   );
 
@@ -48,6 +48,7 @@ class FlutterReduxApp extends StatelessWidget {
       store: store,
       child: new StoreBuilder<GSYState>(builder: (context, store) {
         return new MaterialApp(
+
             ///多语言实现代理
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
@@ -91,8 +92,6 @@ class GSYLocalizations extends StatefulWidget {
 }
 
 class _GSYLocalizations extends State<GSYLocalizations> {
-
-
   StreamSubscription stream;
 
   @override
@@ -110,7 +109,7 @@ class _GSYLocalizations extends State<GSYLocalizations> {
   @override
   void initState() {
     super.initState();
-    stream =  Code.eventBus.on<HttpErrorEvent>().listen((event) {
+    stream = Code.eventBus.on<HttpErrorEvent>().listen((event) {
       errorHandleFunction(event.code, event.message);
     });
   }
@@ -118,7 +117,7 @@ class _GSYLocalizations extends State<GSYLocalizations> {
   @override
   void dispose() {
     super.dispose();
-    if(stream != null) {
+    if (stream != null) {
       stream.cancel();
       stream = null;
     }
@@ -127,23 +126,31 @@ class _GSYLocalizations extends State<GSYLocalizations> {
   errorHandleFunction(int code, message) {
     switch (code) {
       case Code.NETWORK_ERROR:
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).network_error);
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context).network_error);
         break;
       case 401:
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).network_error_401);
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context).network_error_401);
         break;
       case 403:
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).network_error_403);
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context).network_error_403);
         break;
       case 404:
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).network_error_404);
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context).network_error_404);
         break;
       case Code.NETWORK_TIMEOUT:
         //超时
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).network_error_timeout);
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context).network_error_timeout);
         break;
       default:
-        Fluttertoast.showToast(msg: CommonUtils.getLocale(context).network_error_unknown + " " + message);
+        Fluttertoast.showToast(
+            msg: CommonUtils.getLocale(context).network_error_unknown +
+                " " +
+                message);
         break;
     }
   }

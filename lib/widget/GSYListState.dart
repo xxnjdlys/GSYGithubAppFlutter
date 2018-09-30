@@ -10,7 +10,8 @@ import 'package:gsy_github_app_flutter/widget/GSYPullLoadWidget.dart';
  * Date: 2018-07-20
  */
 // ignore: mixin_inherits_from_not_object
-abstract class GSYListState<T extends StatefulWidget> extends State<T> with AutomaticKeepAliveClientMixin {
+abstract class GSYListState<T extends StatefulWidget> extends State<T>
+    with AutomaticKeepAliveClientMixin {
   bool isShow = false;
 
   bool isLoading = false;
@@ -19,9 +20,11 @@ abstract class GSYListState<T extends StatefulWidget> extends State<T> with Auto
 
   final List dataList = new List();
 
-  final GSYPullLoadWidgetControl pullLoadWidgetControl = new GSYPullLoadWidgetControl();
+  final GSYPullLoadWidgetControl pullLoadWidgetControl =
+      new GSYPullLoadWidgetControl();
 
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
 
   showRefreshLoading() {
     new Future.delayed(const Duration(seconds: 0), () {
@@ -85,7 +88,9 @@ abstract class GSYListState<T extends StatefulWidget> extends State<T> with Auto
   resolveDataResult(res) {
     if (isShow) {
       setState(() {
-        pullLoadWidgetControl.needLoadMore = (res != null && res.data != null && res.data.length == Config.PAGE_SIZE);
+        pullLoadWidgetControl.needLoadMore = (res != null &&
+            res.data != null &&
+            res.data.length == Config.PAGE_SIZE);
       });
     }
   }

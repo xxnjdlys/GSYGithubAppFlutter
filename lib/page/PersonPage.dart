@@ -5,27 +5,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gsy_github_app_flutter/common/dao/EventDao.dart';
 import 'package:gsy_github_app_flutter/common/dao/ReposDao.dart';
 import 'package:gsy_github_app_flutter/common/dao/UserDao.dart';
-import 'package:gsy_github_app_flutter/common/model/Event.dart';
 import 'package:gsy_github_app_flutter/common/model/User.dart';
 import 'package:gsy_github_app_flutter/common/model/UserOrg.dart';
-import 'package:gsy_github_app_flutter/common/style/GSYStyle.dart';
 import 'package:gsy_github_app_flutter/common/utils/CommonUtils.dart';
-import 'package:gsy_github_app_flutter/common/utils/EventUtils.dart';
-import 'package:gsy_github_app_flutter/common/utils/NavigatorUtils.dart';
 import 'package:gsy_github_app_flutter/widget/BasePersonState.dart';
-import 'package:gsy_github_app_flutter/widget/EventItem.dart';
 import 'package:gsy_github_app_flutter/widget/GSYCommonOptionWidget.dart';
-import 'package:gsy_github_app_flutter/widget/GSYListState.dart';
 import 'package:gsy_github_app_flutter/widget/GSYPullLoadWidget.dart';
 import 'package:gsy_github_app_flutter/widget/GSYTitleBar.dart';
-import 'package:gsy_github_app_flutter/widget/UserHeader.dart';
-import 'package:gsy_github_app_flutter/widget/UserItem.dart';
 
-/**
- * 个人详情
- * Created by guoshuyu
- * Date: 2018-07-18
- */
+/// 个人详情
+/// Created by guoshuyu
+/// Date: 2018-07-18
 class PersonPage extends StatefulWidget {
   static final String sName = "person";
 
@@ -107,12 +97,13 @@ class _PersonState extends BasePersonState<PersonPage> {
     var focusRes = await UserDao.checkFollowDao(userName);
     if (isShow) {
       setState(() {
-        focus = (focusRes != null && focusRes.result) ? CommonUtils.getLocale(context).user_focus : CommonUtils.getLocale(context).user_un_focus;
+        focus = (focusRes != null && focusRes.result)
+            ? CommonUtils.getLocale(context).user_focus
+            : CommonUtils.getLocale(context).user_un_focus;
         focusStatus = (focusRes != null && focusRes.result);
       });
     }
   }
-
 
   _getUserName() {
     if (userInfo == null) {
@@ -121,13 +112,13 @@ class _PersonState extends BasePersonState<PersonPage> {
     return userInfo.login;
   }
 
-
   _getDataLogic() async {
     if (userInfo.type == "Organization") {
       return await UserDao.getMemberDao(_getUserName(), page);
     }
     getUserOrg(_getUserName());
-    return await EventDao.getEventDao(_getUserName(), page: page, needDb: page <= 1);
+    return await EventDao.getEventDao(_getUserName(),
+        page: page, needDb: page <= 1);
   }
 
   @override
@@ -162,7 +153,8 @@ class _PersonState extends BasePersonState<PersonPage> {
                 return;
               }
               if (userInfo.type == "Organization") {
-                Fluttertoast.showToast(msg: CommonUtils.getLocale(context).user_focus_no_support);
+                Fluttertoast.showToast(
+                    msg: CommonUtils.getLocale(context).user_focus_no_support);
                 return;
               }
               CommonUtils.showLoadingDialog(context);
@@ -173,7 +165,8 @@ class _PersonState extends BasePersonState<PersonPage> {
             }),
         body: GSYPullLoadWidget(
           pullLoadWidgetControl,
-          (BuildContext context, int index) => renderItem(index, userInfo, beStaredCount, null, null, orgList),
+          (BuildContext context, int index) =>
+              renderItem(index, userInfo, beStaredCount, null, null, orgList),
           handleRefresh,
           onLoadMore,
           refreshKey: refreshIndicatorKey,

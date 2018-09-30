@@ -1,9 +1,7 @@
 import 'package:gsy_github_app_flutter/common/style/GSYStringBase.dart';
 
-/**
- * Created by guoshuyu
- * Date: 2018-08-15
- */
+/// Created by guoshuyu
+/// Date: 2018-08-15
 class GSYStringEn extends GSYStringBase {
   @override
   String welcomeMessage = "Welcome To Flutter";
@@ -70,11 +68,11 @@ class GSYStringEn extends GSYStringBase {
   @override
   String home_change_theme = "Theme";
   @override
-  String home_language_default= "Default";
+  String home_language_default = "Default";
   @override
-  String home_language_zh= "Chinese";
+  String home_language_zh = "Chinese";
   @override
-  String home_language_en= "English";
+  String home_language_en = "English";
 
   @override
   String home_theme_default = "Default";

@@ -35,5 +35,6 @@ class FileModel extends Object with _$FileModelSerializerMixin {
     this.type,
   );
 
-  factory FileModel.fromJson(Map<String, dynamic> json) => _$FileModelFromJson(json);
+  factory FileModel.fromJson(Map<String, dynamic> json) =>
+      _$FileModelFromJson(json);
 }

@@ -39,5 +39,6 @@ class TrendingRepoModel extends Object with _$TrendingRepoModelSerializerMixin {
 
   TrendingRepoModel.empty();
 
-  factory TrendingRepoModel.fromJson(Map<String, dynamic> json) => _$TrendingRepoModelFromJson(json);
+  factory TrendingRepoModel.fromJson(Map<String, dynamic> json) =>
+      _$TrendingRepoModelFromJson(json);
 }

@@ -35,5 +35,6 @@ class CommitsComparison extends Object with _$CommitsComparisonSerializerMixin {
     this.files,
   );
 
-  factory CommitsComparison.fromJson(Map<String, dynamic> json) => _$CommitsComparisonFromJson(json);
+  factory CommitsComparison.fromJson(Map<String, dynamic> json) =>
+      _$CommitsComparisonFromJson(json);
 }

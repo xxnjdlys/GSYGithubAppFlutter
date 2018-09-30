@@ -15,10 +15,8 @@ import 'package:gsy_github_app_flutter/widget/PushCoedItem.dart';
 import 'package:gsy_github_app_flutter/widget/PushHeader.dart';
 import 'package:gsy_github_app_flutter/common/utils/HtmlUtils.dart';
 
-/**
- * Created by guoshuyu
- * Date: 2018-07-27
- */
+/// Created by guoshuyu
+/// Date: 2018-07-27
 
 class PushDetailPage extends StatefulWidget {
   final String userName;
@@ -29,10 +27,12 @@ class PushDetailPage extends StatefulWidget {
 
   final bool needHomeIcon;
 
-  PushDetailPage(this.sha, this.userName, this.reposName, {this.needHomeIcon = false});
+  PushDetailPage(this.sha, this.userName, this.reposName,
+      {this.needHomeIcon = false});
 
   @override
-  _PushDetailPageState createState() => _PushDetailPageState(sha, userName, reposName, needHomeIcon);
+  _PushDetailPageState createState() =>
+      _PushDetailPageState(sha, userName, reposName, needHomeIcon);
 }
 
 class _PushDetailPageState extends GSYListState<PushDetailPage> {
@@ -48,7 +48,8 @@ class _PushDetailPageState extends GSYListState<PushDetailPage> {
 
   final OptionControl titleOptionControl = new OptionControl();
 
-  _PushDetailPageState(this.sha, this.userName, this.reposName, this.needHomeIcon);
+  _PushDetailPageState(
+      this.sha, this.userName, this.reposName, this.needHomeIcon);
 
   @override
   Future<Null> handleRefresh() async {
@@ -78,7 +79,8 @@ class _PushDetailPageState extends GSYListState<PushDetailPage> {
     if (index == 0) {
       return new PushHeader(pushHeaderViewModel);
     }
-    PushCodeItemViewModel itemViewModel = PushCodeItemViewModel.fromMap(pullLoadWidgetControl.dataList[index - 1]);
+    PushCodeItemViewModel itemViewModel = PushCodeItemViewModel.fromMap(
+        pullLoadWidgetControl.dataList[index - 1]);
     return new PushCodeItem(itemViewModel, () {
       if (Platform.isIOS) {
         NavigatorUtils.gotoCodeDetailPage(
@@ -90,8 +92,11 @@ class _PushDetailPageState extends GSYListState<PushDetailPage> {
           htmlUrl: itemViewModel.blob_url,
         );
       } else {
-        String html = HtmlUtils.generateCode2HTml(HtmlUtils.parseDiffSource(itemViewModel.patch, false),
-            backgroundColor: GSYColors.webDraculaBackgroundColorString, lang: '', userBR: false);
+        String html = HtmlUtils.generateCode2HTml(
+            HtmlUtils.parseDiffSource(itemViewModel.patch, false),
+            backgroundColor: GSYColors.webDraculaBackgroundColorString,
+            lang: '',
+            userBR: false);
         CommonUtils.launchWebView(context, itemViewModel.name, html);
       }
     });
@@ -121,7 +126,8 @@ class _PushDetailPageState extends GSYListState<PushDetailPage> {
   @override
   Widget build(BuildContext context) {
     super.build(context); // See AutomaticKeepAliveClientMixin.
-    Widget widget = (needHomeIcon) ? null : new GSYCommonOptionWidget(titleOptionControl);
+    Widget widget =
+        (needHomeIcon) ? null : new GSYCommonOptionWidget(titleOptionControl);
     return new Scaffold(
       appBar: new AppBar(
         title: GSYTitleBar(

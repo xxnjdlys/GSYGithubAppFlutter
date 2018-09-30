@@ -12,9 +12,13 @@ DownloadSource _$DownloadSourceFromJson(Map<String, dynamic> json) =>
 
 abstract class _$DownloadSourceSerializerMixin {
   String get url;
+
   bool get isSourceCode;
+
   String get name;
+
   int get size;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'url': url,
         'isSourceCode': isSourceCode,

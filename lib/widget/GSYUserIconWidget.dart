@@ -14,13 +14,19 @@ class GSYUserIconWidget extends StatelessWidget {
   final double height;
   final EdgeInsetsGeometry padding;
 
-  GSYUserIconWidget({this.image, this.onPressed, this.width = 30.0, this.height = 30.0, this.padding});
+  GSYUserIconWidget(
+      {this.image,
+      this.onPressed,
+      this.width = 30.0,
+      this.height = 30.0,
+      this.padding});
 
   @override
   Widget build(BuildContext context) {
     return new RawMaterialButton(
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: padding ?? const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
+        padding:
+            padding ?? const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
         constraints: const BoxConstraints(minWidth: 0.0, minHeight: 0.0),
         child: new ClipOval(
           child: new FadeInImage.assetNetwork(

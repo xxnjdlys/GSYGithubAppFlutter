@@ -26,14 +26,24 @@ class IssueDao {
    * @param sort 排序类型 created updated等
    * @param direction 正序或者倒序
    */
-  static getRepositoryIssueDao(userName, repository, state, {sort, direction, page = 0, needDb = false}) async {
+  static getRepositoryIssueDao(userName, repository, state,
+      {sort, direction, page = 0, needDb = false}) async {
     String fullName = userName + "/" + repository;
     String dbState = state ?? "*";
     RepositoryIssueDbProvider provider = new RepositoryIssueDbProvider();
 
     next() async {
-      String url = Address.getReposIssue(userName, repository, state, sort, direction) + Address.getPageParams("&", page);
-      var res = await HttpManager.netFetch(url, null, {"Accept": 'application/vnd.github.html,application/vnd.github.VERSION.raw'}, null);
+      String url =
+          Address.getReposIssue(userName, repository, state, sort, direction) +
+              Address.getPageParams("&", page);
+      var res = await HttpManager.netFetch(
+          url,
+          null,
+          {
+            "Accept":
+                'application/vnd.github.html,application/vnd.github.VERSION.raw'
+          },
+          null);
       if (res != null && res.result) {
         List<Issue> list = new List();
         var data = res.data;
@@ -78,7 +88,8 @@ class IssueDao {
     } else {
       qu = q + "+repo%3A${name}%2F${reposName}+state%3A${state}";
     }
-    String url = Address.repositoryIssueSearch(qu) + Address.getPageParams("&", page);
+    String url =
+        Address.repositoryIssueSearch(qu) + Address.getPageParams("&", page);
     var res = await HttpManager.netFetch(url, null, null, null);
     if (res != null && res.result) {
       List<Issue> list = new List();
@@ -106,7 +117,8 @@ class IssueDao {
     next() async {
       String url = Address.getIssueInfo(userName, repository, number);
       //{"Accept": 'application/vnd.github.html,application/vnd.github.VERSION.raw'}
-      var res = await HttpManager.netFetch(url, null, {"Accept": 'application/vnd.github.VERSION.raw'}, null);
+      var res = await HttpManager.netFetch(
+          url, null, {"Accept": 'application/vnd.github.VERSION.raw'}, null);
       if (res != null && res.result) {
         if (needDb) {
           provider.insert(fullName, number, json.encode(res.data));
@@ -131,14 +143,17 @@ class IssueDao {
   /**
    * issue的详请列表
    */
-  static getIssueCommentDao(userName, repository, number, {page: 0, needDb = false}) async {
+  static getIssueCommentDao(userName, repository, number,
+      {page: 0, needDb = false}) async {
     String fullName = userName + "/" + repository;
     IssueCommentDbProvider provider = new IssueCommentDbProvider();
 
     next() async {
-      String url = Address.getIssueComment(userName, repository, number) + Address.getPageParams("?", page);
+      String url = Address.getIssueComment(userName, repository, number) +
+          Address.getPageParams("?", page);
       //{"Accept": 'application/vnd.github.html,application/vnd.github.VERSION.raw'}
-      var res = await HttpManager.netFetch(url, null, {"Accept": 'application/vnd.github.VERSION.raw'}, null);
+      var res = await HttpManager.netFetch(
+          url, null, {"Accept": 'application/vnd.github.VERSION.raw'}, null);
       if (res != null && res.result) {
         List<Issue> list = new List();
         var data = res.data;
@@ -173,7 +188,11 @@ class IssueDao {
    */
   static addIssueCommentDao(userName, repository, number, comment) async {
     String url = Address.addIssueComment(userName, repository, number);
-    var res = await HttpManager.netFetch(url, {"body": comment}, {"Accept": 'application/vnd.github.VERSION.full+json'}, new Options(method: 'POST'));
+    var res = await HttpManager.netFetch(
+        url,
+        {"body": comment},
+        {"Accept": 'application/vnd.github.VERSION.full+json'},
+        new Options(method: 'POST'));
     if (res != null && res.result) {
       return new DataResult(res.data, true);
     } else {
@@ -186,7 +205,11 @@ class IssueDao {
    */
   static editIssueDao(userName, repository, number, issue) async {
     String url = Address.editIssue(userName, repository, number);
-    var res = await HttpManager.netFetch(url, issue, {"Accept": 'application/vnd.github.VERSION.full+json'}, new Options(method: 'PATCH'));
+    var res = await HttpManager.netFetch(
+        url,
+        issue,
+        {"Accept": 'application/vnd.github.VERSION.full+json'},
+        new Options(method: 'PATCH'));
     if (res != null && res.result) {
       return new DataResult(res.data, true);
     } else {
@@ -200,7 +223,11 @@ class IssueDao {
   static lockIssueDao(userName, repository, number, locked) async {
     String url = Address.lockIssue(userName, repository, number);
     var res = await HttpManager.netFetch(
-        url, null, {"Accept": 'application/vnd.github.VERSION.full+json'}, new Options(method: locked ? "DELETE" : 'PUT', contentType: ContentType.text),
+        url,
+        null,
+        {"Accept": 'application/vnd.github.VERSION.full+json'},
+        new Options(
+            method: locked ? "DELETE" : 'PUT', contentType: ContentType.text),
         noTip: true);
     if (res != null && res.result) {
       return new DataResult(res.data, true);
@@ -214,7 +241,11 @@ class IssueDao {
    */
   static createIssueDao(userName, repository, issue) async {
     String url = Address.createIssue(userName, repository);
-    var res = await HttpManager.netFetch(url, issue, {"Accept": 'application/vnd.github.VERSION.full+json'}, new Options(method: 'POST'));
+    var res = await HttpManager.netFetch(
+        url,
+        issue,
+        {"Accept": 'application/vnd.github.VERSION.full+json'},
+        new Options(method: 'POST'));
     if (res != null && res.result) {
       return new DataResult(res.data, true);
     } else {
@@ -225,9 +256,14 @@ class IssueDao {
   /**
    * 编辑issue回复
    */
-  static editCommentDao(userName, repository, number, commentId, comment) async {
+  static editCommentDao(
+      userName, repository, number, commentId, comment) async {
     String url = Address.editComment(userName, repository, commentId);
-    var res = await HttpManager.netFetch(url, comment, {"Accept": 'application/vnd.github.VERSION.full+json'}, new Options(method: 'PATCH'));
+    var res = await HttpManager.netFetch(
+        url,
+        comment,
+        {"Accept": 'application/vnd.github.VERSION.full+json'},
+        new Options(method: 'PATCH'));
     if (res != null && res.result) {
       return new DataResult(res.data, true);
     } else {
@@ -240,7 +276,9 @@ class IssueDao {
    */
   static deleteCommentDao(userName, repository, number, commentId) async {
     String url = Address.editComment(userName, repository, commentId);
-    var res = await HttpManager.netFetch(url, null, null, new Options(method: 'DELETE'), noTip: true);
+    var res = await HttpManager.netFetch(
+        url, null, null, new Options(method: 'DELETE'),
+        noTip: true);
     if (res != null && res.result) {
       return new DataResult(res.data, true);
     } else {

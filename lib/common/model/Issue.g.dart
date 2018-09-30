@@ -35,20 +35,35 @@ Issue _$IssueFromJson(Map<String, dynamic> json) => new Issue(
 
 abstract class _$IssueSerializerMixin {
   int get id;
+
   int get number;
+
   String get title;
+
   String get state;
+
   bool get locked;
+
   int get commentNum;
+
   DateTime get createdAt;
+
   DateTime get updatedAt;
+
   DateTime get closedAt;
+
   String get body;
+
   String get bodyHtml;
+
   User get user;
+
   String get repoUrl;
+
   String get htmlUrl;
+
   User get closeBy;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'number': number,

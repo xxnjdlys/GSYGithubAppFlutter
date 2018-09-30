@@ -11,11 +11,9 @@ import 'package:gsy_github_app_flutter/widget/GSYTitleBar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gsy_github_app_flutter/common/model/Notification.dart' as Model;
 
-/**
- * 通知消息
- * Created by guoshuyu
- * Date: 2018-07-24
- */
+/// 通知消息
+/// Created by guoshuyu
+/// Date: 2018-07-24
 
 class NotifyPage extends StatefulWidget {
   NotifyPage();
@@ -48,7 +46,8 @@ class _NotifyPageState extends GSYListState<NotifyPage> {
           color: Colors.redAccent,
           icon: Icons.delete,
           onTap: () {
-            UserDao.setNotificationAsReadDao(notification.id.toString()).then((res) {
+            UserDao.setNotificationAsReadDao(notification.id.toString())
+                .then((res) {
               showRefreshLoading();
             });
           },
@@ -58,7 +57,8 @@ class _NotifyPageState extends GSYListState<NotifyPage> {
   }
 
   _renderEventItem(Model.Notification notification) {
-    EventViewModel eventViewModel = EventViewModel.fromNotify(context, notification);
+    EventViewModel eventViewModel =
+        EventViewModel.fromNotify(context, notification);
     return new EventItem(eventViewModel, onPressed: () {
       if (notification.unread) {
         UserDao.setNotificationAsReadDao(notification.id.toString());
@@ -69,7 +69,9 @@ class _NotifyPageState extends GSYListState<NotifyPage> {
         String number = tmp[tmp.length - 1];
         String userName = notification.repository.owner.login;
         String reposName = notification.repository.name;
-        NavigatorUtils.goIssueDetail(context, userName, reposName, number, needRightLocalIcon: true).then((res) {
+        NavigatorUtils.goIssueDetail(context, userName, reposName, number,
+                needRightLocalIcon: true)
+            .then((res) {
           showRefreshLoading();
         });
       }

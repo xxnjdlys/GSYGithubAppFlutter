@@ -13,11 +13,9 @@ import 'package:gsy_github_app_flutter/widget/GSYListState.dart';
 import 'package:gsy_github_app_flutter/widget/GSYPullLoadWidget.dart';
 import 'package:gsy_github_app_flutter/widget/ReposHeaderItem.dart';
 
-/**
- * 仓库详情动态信息页面
- * Created by guoshuyu
- * Date: 2018-07-18
- */
+/// 仓库详情动态信息页面
+/// Created by guoshuyu
+/// Date: 2018-07-18
 class ReposDetailInfoPage extends StatefulWidget {
   final String userName;
 
@@ -27,10 +25,14 @@ class ReposDetailInfoPage extends StatefulWidget {
 
   final OptionControl titleOptionControl;
 
-  ReposDetailInfoPage(this.userName, this.reposName, this.reposDetailParentControl, this.titleOptionControl, {Key key}) : super(key: key);
+  ReposDetailInfoPage(this.userName, this.reposName,
+      this.reposDetailParentControl, this.titleOptionControl,
+      {Key key})
+      : super(key: key);
 
   @override
-  ReposDetailInfoPageState createState() => ReposDetailInfoPageState(userName, reposName, reposDetailParentControl, titleOptionControl);
+  ReposDetailInfoPageState createState() => ReposDetailInfoPageState(
+      userName, reposName, reposDetailParentControl, titleOptionControl);
 }
 
 // ignore: mixin_inherits_from_not_object
@@ -47,12 +49,15 @@ class ReposDetailInfoPageState extends GSYListState<ReposDetailInfoPage> {
 
   int selectIndex = 0;
 
-  ReposDetailInfoPageState(this.userName, this.reposName, this.reposDetailParentControl, this.titleOptionControl);
+  ReposDetailInfoPageState(this.userName, this.reposName,
+      this.reposDetailParentControl, this.titleOptionControl);
 
   ///渲染时间Item或者提交Item
   _renderEventItem(index) {
     if (index == 0) {
-      return new ReposHeaderItem(ReposHeaderViewModel.fromHttpMap(userName, reposName, repository), (index) {
+      return new ReposHeaderItem(
+          ReposHeaderViewModel.fromHttpMap(userName, reposName, repository),
+          (index) {
         selectIndex = index;
         clearData();
         showRefreshLoading();
@@ -65,7 +70,8 @@ class ReposDetailInfoPageState extends GSYListState<ReposDetailInfoPage> {
         EventViewModel.fromCommitMap(pullLoadWidgetControl.dataList[index - 1]),
         onPressed: () {
           RepoCommit model = pullLoadWidgetControl.dataList[index - 1];
-          NavigatorUtils.goPushDetailPage(context, userName, reposName, model.sha, false);
+          NavigatorUtils.goPushDetailPage(
+              context, userName, reposName, model.sha, false);
         },
         needImage: false,
       );
@@ -73,7 +79,10 @@ class ReposDetailInfoPageState extends GSYListState<ReposDetailInfoPage> {
     return new EventItem(
       EventViewModel.fromEventMap(pullLoadWidgetControl.dataList[index - 1]),
       onPressed: () {
-        EventUtils.ActionUtils(context, pullLoadWidgetControl.dataList[index - 1], userName + "/" + reposName);
+        EventUtils.ActionUtils(
+            context,
+            pullLoadWidgetControl.dataList[index - 1],
+            userName + "/" + reposName);
       },
     );
   }
@@ -100,7 +109,9 @@ class ReposDetailInfoPageState extends GSYListState<ReposDetailInfoPage> {
 
   ///获取详情
   _getReposDetail() {
-    ReposDao.getRepositoryDetailDao(userName, reposName, reposDetailParentControl.currentBranch).then((result) {
+    ReposDao.getRepositoryDetailDao(
+            userName, reposName, reposDetailParentControl.currentBranch)
+        .then((result) {
       if (result != null && result.result) {
         setState(() {
           repository = result.data;

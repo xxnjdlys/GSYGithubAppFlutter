@@ -29,8 +29,13 @@ class HomeDrawer extends StatelessWidget {
         context: context,
         builder: (BuildContext context) => AboutDialog(
               applicationName: CommonUtils.getLocale(context).app_name,
-              applicationVersion: CommonUtils.getLocale(context).app_version + ": " + versionName,
-              applicationIcon: new Image(image: new AssetImage(GSYICons.DEFAULT_USER_ICON), width: 50.0, height: 50.0),
+              applicationVersion: CommonUtils.getLocale(context).app_version +
+                  ": " +
+                  versionName,
+              applicationIcon: new Image(
+                  image: new AssetImage(GSYICons.DEFAULT_USER_ICON),
+                  width: 50.0,
+                  height: 50.0),
               applicationLegalese: "http://github.com/CarGuo",
             ));
   }
@@ -76,7 +81,8 @@ class HomeDrawer extends StatelessWidget {
             child: new SingleChildScrollView(
               ///item 背景
               child: Container(
-                constraints: new BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+                constraints: new BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height),
                 child: new Material(
                   color: Color(GSYColors.white),
                   child: new Column(
@@ -98,7 +104,8 @@ class HomeDrawer extends StatelessWidget {
                           onTap: () {},
                           child: new CircleAvatar(
                             //圆形图标控件
-                            backgroundImage: new NetworkImage(user.avatar_url ?? GSYICons.DEFAULT_REMOTE_PIC),
+                            backgroundImage: new NetworkImage(
+                                user.avatar_url ?? GSYICons.DEFAULT_REMOTE_PIC),
                           ),
                         ),
                         decoration: new BoxDecoration(
@@ -113,7 +120,10 @@ class HomeDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             String content = "";
-                            CommonUtils.showEditDialog(context, CommonUtils.getLocale(context).home_reply, (title) {}, (res) {
+                            CommonUtils.showEditDialog(
+                                context,
+                                CommonUtils.getLocale(context).home_reply,
+                                (title) {}, (res) {
                               content = res;
                             }, () {
                               if (content == null || content.length == 0) {
@@ -121,12 +131,18 @@ class HomeDrawer extends StatelessWidget {
                               }
                               CommonUtils.showLoadingDialog(context);
                               IssueDao.createIssueDao(
-                                      "CarGuo", "GSYGithubAppFlutter", {"title": CommonUtils.getLocale(context).home_reply, "body": content})
-                                  .then((result) {
+                                  "CarGuo", "GSYGithubAppFlutter", {
+                                "title":
+                                    CommonUtils.getLocale(context).home_reply,
+                                "body": content
+                              }).then((result) {
                                 Navigator.pop(context);
                                 Navigator.pop(context);
                               });
-                            }, titleController: new TextEditingController(), valueController: new TextEditingController(), needTitle: false);
+                            },
+                                titleController: new TextEditingController(),
+                                valueController: new TextEditingController(),
+                                needTitle: false);
                           }),
                       new ListTile(
                           title: new Text(
@@ -134,8 +150,13 @@ class HomeDrawer extends StatelessWidget {
                             style: GSYConstant.normalText,
                           ),
                           onTap: () {
-                            NavigatorUtils.gotoCommonList(context, CommonUtils.getLocale(context).home_history, "repository", "history",
-                                userName: "", reposName: "");
+                            NavigatorUtils.gotoCommonList(
+                                context,
+                                CommonUtils.getLocale(context).home_history,
+                                "repository",
+                                "history",
+                                userName: "",
+                                reposName: "");
                           }),
                       new ListTile(
                           title: new Text(
@@ -171,7 +192,9 @@ class HomeDrawer extends StatelessWidget {
                           }),
                       new ListTile(
                           title: new Text(
-                            GSYLocalizations.of(context).currentLocalized.home_about,
+                            GSYLocalizations.of(context)
+                                .currentLocalized
+                                .home_about,
                             style: GSYConstant.normalText,
                           ),
                           onTap: () {

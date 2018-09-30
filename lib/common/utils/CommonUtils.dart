@@ -42,7 +42,8 @@ class CommonUtils {
   static double sStaticBarHeight = 0.0;
 
   static void initStatusBarHeight(context) async {
-    sStaticBarHeight = await FlutterStatusbar.height / MediaQuery.of(context).devicePixelRatio;
+    sStaticBarHeight =
+        await FlutterStatusbar.height / MediaQuery.of(context).devicePixelRatio;
   }
 
   static String getDateStr(DateTime date) {
@@ -55,12 +56,16 @@ class CommonUtils {
   }
 
   static String getUserChartAddress(String userName) {
-    return Address.graphicHost + GSYColors.primaryValueString.replaceAll("#", "") + "/" + userName;
+    return Address.graphicHost +
+        GSYColors.primaryValueString.replaceAll("#", "") +
+        "/" +
+        userName;
   }
 
   ///日期格式转换
   static String getNewsTimeStr(DateTime date) {
-    int subTime = DateTime.now().millisecondsSinceEpoch - date.millisecondsSinceEpoch;
+    int subTime =
+        DateTime.now().millisecondsSinceEpoch - date.millisecondsSinceEpoch;
 
     if (subTime < MILLIS_LIMIT) {
       return "刚刚";
@@ -84,9 +89,12 @@ class CommonUtils {
     } else {
       appDir = await getExternalStorageDirectory();
     }
-    PermissionStatus permission = await PermissionHandler().checkPermissionStatus(PermissionGroup.storage);
+    PermissionStatus permission = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.storage);
     if (permission != PermissionStatus.granted) {
-      Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+      Map<PermissionGroup, PermissionStatus> permissions =
+          await PermissionHandler()
+              .requestPermissions([PermissionGroup.storage]);
       if (permissions[PermissionGroup.storage] != PermissionStatus.granted) {
         return null;
       }
@@ -121,14 +129,16 @@ class CommonUtils {
   }
 
   static getFullName(String repository_url) {
-    if (repository_url != null && repository_url.substring(repository_url.length - 1) == "/") {
+    if (repository_url != null &&
+        repository_url.substring(repository_url.length - 1) == "/") {
       repository_url = repository_url.substring(0, repository_url.length - 1);
     }
     String fullName = '';
     if (repository_url != null) {
       List<String> splicurl = repository_url.split("/");
       if (splicurl.length > 2) {
-        fullName = splicurl[splicurl.length - 2] + "/" + splicurl[splicurl.length - 1];
+        fullName =
+            splicurl[splicurl.length - 2] + "/" + splicurl[splicurl.length - 1];
       }
     }
     return fullName;
@@ -137,7 +147,8 @@ class CommonUtils {
   static pushTheme(Store store, int index) {
     ThemeData themeData;
     List<Color> colors = getThemeListColor();
-    themeData = new ThemeData(primarySwatch: colors[index], platform: TargetPlatform.iOS);
+    themeData = new ThemeData(
+        primarySwatch: colors[index], platform: TargetPlatform.iOS);
     store.dispatch(new RefreshThemeDataAction(themeData));
   }
 
@@ -187,7 +198,8 @@ class CommonUtils {
 
   static copy(String data, BuildContext context) {
     Clipboard.setData(new ClipboardData(text: data));
-    Fluttertoast.showToast(msg: CommonUtils.getLocale(context).option_share_copy_success);
+    Fluttertoast.showToast(
+        msg: CommonUtils.getLocale(context).option_share_copy_success);
   }
 
   static launchUrl(context, String url) {
@@ -202,7 +214,9 @@ class CommonUtils {
       return;
     }
 
-    if (parseUrl != null && parseUrl.host == "github.com" && parseUrl.path.length > 0) {
+    if (parseUrl != null &&
+        parseUrl.host == "github.com" &&
+        parseUrl.path.length > 0) {
       List<String> pathnames = parseUrl.path.split("/");
       if (pathnames.length == 2) {
         //解析人
@@ -228,7 +242,11 @@ class CommonUtils {
       NavigatorUtils.goGSYWebView(context, url, title);
     } else {
       NavigatorUtils.goGSYWebView(
-          context, new Uri.dataFromString(url, mimeType: 'text/html', encoding: Encoding.getByName("utf-8")).toString(), title);
+          context,
+          new Uri.dataFromString(url,
+                  mimeType: 'text/html', encoding: Encoding.getByName("utf-8"))
+              .toString(),
+          title);
     }
   }
 
@@ -236,7 +254,10 @@ class CommonUtils {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      Fluttertoast.showToast(msg: CommonUtils.getLocale(context).option_web_launcher_error + ": " + url);
+      Fluttertoast.showToast(
+          msg: CommonUtils.getLocale(context).option_web_launcher_error +
+              ": " +
+              url);
     }
   }
 
@@ -261,9 +282,17 @@ class CommonUtils {
                     child: new Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        new Container(child: SpinKitCubeGrid(color: Color(GSYColors.white))),
+                        new Container(
+//                          child: SpinKitCubeGrid(color: Colors.white),
+//                          child: SpinKitDoubleBounce(color: Colors.white),
+//                          child: SpinKitRotatingCircle(color: Colors.white),
+                          child: SpinKitThreeBounce(color: Colors.white),
+                        ),
                         new Container(height: 10.0),
-                        new Container(child: new Text(CommonUtils.getLocale(context).loading_text, style: GSYConstant.normalTextWhite)),
+                        new Container(
+                            child: new Text(
+                                CommonUtils.getLocale(context).loading_text,
+                                style: GSYConstant.normalTextWhite)),
                       ],
                     ),
                   ),
@@ -328,7 +357,9 @@ class CommonUtils {
                       maxLines: 2,
                       mainAxisAlignment: MainAxisAlignment.start,
                       fontSize: 14.0,
-                      color: colorList != null ? colorList[index] : Theme.of(context).primaryColor,
+                      color: colorList != null
+                          ? colorList[index]
+                          : Theme.of(context).primaryColor,
                       text: commitMaps[index],
                       textColor: Color(GSYColors.white),
                       onPress: () {
@@ -343,7 +374,8 @@ class CommonUtils {
   }
 
   ///版本更新
-  static Future<Null> showUpdateDialog(BuildContext context, String contentMsg) {
+  static Future<Null> showUpdateDialog(
+      BuildContext context, String contentMsg) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {

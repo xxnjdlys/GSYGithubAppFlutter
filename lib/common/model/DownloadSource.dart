@@ -21,5 +21,6 @@ class DownloadSource extends Object with _$DownloadSourceSerializerMixin {
     this.size,
   );
 
-  factory DownloadSource.fromJson(Map<String, dynamic> json) => _$DownloadSourceFromJson(json);
+  factory DownloadSource.fromJson(Map<String, dynamic> json) =>
+      _$DownloadSourceFromJson(json);
 }

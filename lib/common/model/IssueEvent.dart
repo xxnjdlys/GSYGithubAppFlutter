@@ -38,5 +38,6 @@ class IssueEvent extends Object with _$IssueEventSerializerMixin {
     this.htmlUrl,
   );
 
-  factory IssueEvent.fromJson(Map<String, dynamic> json) => _$IssueEventFromJson(json);
+  factory IssueEvent.fromJson(Map<String, dynamic> json) =>
+      _$IssueEventFromJson(json);
 }

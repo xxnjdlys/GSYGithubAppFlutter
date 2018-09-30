@@ -28,12 +28,19 @@ Notification _$NotificationFromJson(Map<String, dynamic> json) =>
 
 abstract class _$NotificationSerializerMixin {
   String get id;
+
   bool get unread;
+
   String get reason;
+
   DateTime get updateAt;
+
   DateTime get lastReadAt;
+
   Repository get repository;
+
   NotificationSubject get subject;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'unread': unread,

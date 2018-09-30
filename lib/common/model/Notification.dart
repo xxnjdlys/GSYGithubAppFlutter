@@ -21,7 +21,9 @@ class Notification extends Object with _$NotificationSerializerMixin {
   Repository repository;
   NotificationSubject subject;
 
-  Notification(this.id, this.unread, this.reason, this.updateAt, this.lastReadAt, this.repository, this.subject);
+  Notification(this.id, this.unread, this.reason, this.updateAt,
+      this.lastReadAt, this.repository, this.subject);
 
-  factory Notification.fromJson(Map<String, dynamic> json) => _$NotificationFromJson(json);
+  factory Notification.fromJson(Map<String, dynamic> json) =>
+      _$NotificationFromJson(json);
 }

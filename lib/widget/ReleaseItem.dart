@@ -16,7 +16,8 @@ class ReleaseItem extends StatelessWidget {
   final GestureTapCallback onPressed;
   final GestureLongPressCallback onLongPress;
 
-  ReleaseItem(this.releaseItemViewModel, {this.onPressed, this.onLongPress}) : super();
+  ReleaseItem(this.releaseItemViewModel, {this.onPressed, this.onLongPress})
+      : super();
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +27,16 @@ class ReleaseItem extends StatelessWidget {
           onTap: onPressed,
           onLongPress: onLongPress,
           child: new Padding(
-            padding: new EdgeInsets.only(left: 10.0, top: 15.0, right: 10.0, bottom: 15.0),
+            padding: new EdgeInsets.only(
+                left: 10.0, top: 15.0, right: 10.0, bottom: 15.0),
             child: new Row(
               children: <Widget>[
-                new Expanded(child: new Text(releaseItemViewModel.actionTitle, style: GSYConstant.smallTextBold)),
-                new Container(child: new Text(releaseItemViewModel.actionTime ?? "", style: GSYConstant.smallSubText)),
+                new Expanded(
+                    child: new Text(releaseItemViewModel.actionTitle,
+                        style: GSYConstant.smallTextBold)),
+                new Container(
+                    child: new Text(releaseItemViewModel.actionTime ?? "",
+                        style: GSYConstant.smallSubText)),
               ],
             ),
           ),

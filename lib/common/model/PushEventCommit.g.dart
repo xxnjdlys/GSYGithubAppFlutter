@@ -18,10 +18,15 @@ PushEventCommit _$PushEventCommitFromJson(Map<String, dynamic> json) =>
 
 abstract class _$PushEventCommitSerializerMixin {
   String get sha;
+
   User get author;
+
   String get message;
+
   bool get distinct;
+
   String get url;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'sha': sha,
         'author': author,

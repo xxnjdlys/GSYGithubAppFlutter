@@ -28,16 +28,27 @@ ReleaseAsset _$ReleaseAssetFromJson(Map<String, dynamic> json) =>
 
 abstract class _$ReleaseAssetSerializerMixin {
   int get id;
+
   String get name;
+
   String get label;
+
   User get uploader;
+
   String get contentType;
+
   String get state;
+
   int get size;
+
   int get downloadCout;
+
   DateTime get createdAt;
+
   DateTime get updatedAt;
+
   String get downloadUrl;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'name': name,

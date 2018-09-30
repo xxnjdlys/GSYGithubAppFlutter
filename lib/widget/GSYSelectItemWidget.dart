@@ -10,7 +10,8 @@ import 'package:gsy_github_app_flutter/widget/GSYCardItem.dart';
 
 typedef void SelectItemChanged<int>(int value);
 
-class GSYSelectItemWidget extends StatefulWidget implements PreferredSizeWidget {
+class GSYSelectItemWidget extends StatefulWidget
+    implements PreferredSizeWidget {
   final List<String> itemNames;
 
   final SelectItemChanged selectItemChanged;
@@ -44,7 +45,9 @@ class _GSYSelectItemWidgetState extends State<GSYSelectItemWidget> {
   _GSYSelectItemWidgetState();
 
   _renderItem(String name, int index) {
-    var style = index == selectIndex ? GSYConstant.middleTextWhite : GSYConstant.middleSubLightText;
+    var style = index == selectIndex
+        ? GSYConstant.middleTextWhite
+        : GSYConstant.middleSubLightText;
     return new Expanded(
       child: RawMaterialButton(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -73,7 +76,10 @@ class _GSYSelectItemWidgetState extends State<GSYSelectItemWidget> {
         list.add(_renderItem(widget.itemNames[i], i));
       } else {
         list.add(_renderItem(widget.itemNames[i], i));
-        list.add(new Container(width: 1.0, height: 25.0, color: Color(GSYColors.subLightTextColor)));
+        list.add(new Container(
+            width: 1.0,
+            height: 25.0,
+            color: Color(GSYColors.subLightTextColor)));
       }
     }
     return list;

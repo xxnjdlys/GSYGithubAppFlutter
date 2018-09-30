@@ -12,8 +12,11 @@ CommitGitUser _$CommitGitUserFromJson(Map<String, dynamic> json) =>
 
 abstract class _$CommitGitUserSerializerMixin {
   String get name;
+
   String get email;
+
   DateTime get date;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name,
         'email': email,

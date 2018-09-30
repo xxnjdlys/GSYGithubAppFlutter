@@ -8,11 +8,9 @@ import 'package:gsy_github_app_flutter/common/utils/CommonUtils.dart';
 import 'package:gsy_github_app_flutter/page/RepositoryDetailPage.dart';
 import 'package:gsy_github_app_flutter/widget/GSYMarkdownWidget.dart';
 
-/**
- * Readme
- * Created by guoshuyu
- * Date: 2018-07-18
- */
+/// Readme
+/// Created by guoshuyu
+/// Date: 2018-07-18
 
 class RepositoryDetailReadmePage extends StatefulWidget {
   final String userName;
@@ -21,14 +19,20 @@ class RepositoryDetailReadmePage extends StatefulWidget {
 
   final ReposDetailParentControl reposDetailParentControl;
 
-  RepositoryDetailReadmePage(this.userName, this.reposName, this.reposDetailParentControl, {Key key}) : super(key: key);
+  RepositoryDetailReadmePage(
+      this.userName, this.reposName, this.reposDetailParentControl,
+      {Key key})
+      : super(key: key);
 
   @override
-  RepositoryDetailReadmePageState createState() => RepositoryDetailReadmePageState(userName, reposName, reposDetailParentControl);
+  RepositoryDetailReadmePageState createState() =>
+      RepositoryDetailReadmePageState(
+          userName, reposName, reposDetailParentControl);
 }
 
 // ignore: mixin_inherits_from_not_object
-class RepositoryDetailReadmePageState extends State<RepositoryDetailReadmePage> with AutomaticKeepAliveClientMixin {
+class RepositoryDetailReadmePageState extends State<RepositoryDetailReadmePage>
+    with AutomaticKeepAliveClientMixin {
   final String userName;
 
   final String reposName;
@@ -39,10 +43,13 @@ class RepositoryDetailReadmePageState extends State<RepositoryDetailReadmePage> 
 
   String markdownData;
 
-  RepositoryDetailReadmePageState(this.userName, this.reposName, this.reposDetailParentControl);
+  RepositoryDetailReadmePageState(
+      this.userName, this.reposName, this.reposDetailParentControl);
 
   refreshReadme() {
-    ReposDao.getRepositoryDetailReadmeDao(userName, reposName, reposDetailParentControl.currentBranch).then((res) {
+    ReposDao.getRepositoryDetailReadmeDao(
+            userName, reposName, reposDetailParentControl.currentBranch)
+        .then((res) {
       if (res != null && res.result) {
         if (isShow) {
           setState(() {
@@ -77,7 +84,6 @@ class RepositoryDetailReadmePageState extends State<RepositoryDetailReadmePage> 
   void dispose() {
     isShow = false;
     super.dispose();
-
   }
 
   @override
@@ -94,7 +100,9 @@ class RepositoryDetailReadmePageState extends State<RepositoryDetailReadmePage> 
             children: <Widget>[
               new SpinKitDoubleBounce(color: Theme.of(context).primaryColor),
               new Container(width: 10.0),
-              new Container(child: new Text(CommonUtils.getLocale(context).loading_text, style: GSYConstant.middleText)),
+              new Container(
+                  child: new Text(CommonUtils.getLocale(context).loading_text,
+                      style: GSYConstant.middleText)),
             ],
           ),
         ),

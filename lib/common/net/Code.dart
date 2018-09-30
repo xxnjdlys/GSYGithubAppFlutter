@@ -1,5 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:gsy_github_app_flutter/common/event/HttpErrorEvent.dart';
+
 ///错误编码
 class Code {
   ///网络错误
@@ -16,7 +17,7 @@ class Code {
   static final EventBus eventBus = new EventBus();
 
   static errorHandleFunction(code, message, noTip) {
-    if(noTip) {
+    if (noTip) {
       return message;
     }
     eventBus.fire(new HttpErrorEvent(code, message));

@@ -37,5 +37,6 @@ class CommitFile extends Object with _$CommitFileSerializerMixin {
     this.patch,
   );
 
-  factory CommitFile.fromJson(Map<String, dynamic> json) => _$CommitFileFromJson(json);
+  factory CommitFile.fromJson(Map<String, dynamic> json) =>
+      _$CommitFileFromJson(json);
 }

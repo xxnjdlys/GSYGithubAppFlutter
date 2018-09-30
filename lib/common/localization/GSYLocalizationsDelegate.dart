@@ -10,7 +10,6 @@ import 'package:gsy_github_app_flutter/common/localization/DefaultLocalizations.
  * Date: 2018-08-15
  */
 class GSYLocalizationsDelegate extends LocalizationsDelegate<GSYLocalizations> {
-
   GSYLocalizationsDelegate();
 
   @override
@@ -22,7 +21,8 @@ class GSYLocalizationsDelegate extends LocalizationsDelegate<GSYLocalizations> {
   ///根据locale，创建一个对象用于提供当前locale下的文本显示
   @override
   Future<GSYLocalizations> load(Locale locale) {
-    return new SynchronousFuture<GSYLocalizations>(new GSYLocalizations(locale));
+    return new SynchronousFuture<GSYLocalizations>(
+        new GSYLocalizations(locale));
   }
 
   @override

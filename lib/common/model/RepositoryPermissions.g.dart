@@ -13,8 +13,11 @@ RepositoryPermissions _$RepositoryPermissionsFromJson(
 
 abstract class _$RepositoryPermissionsSerializerMixin {
   bool get admin;
+
   bool get push;
+
   bool get pull;
+
   Map<String, dynamic> toJson() =>
       <String, dynamic>{'admin': admin, 'push': push, 'pull': pull};
 }

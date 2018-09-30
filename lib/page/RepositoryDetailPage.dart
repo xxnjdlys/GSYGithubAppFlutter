@@ -13,11 +13,9 @@ import 'package:gsy_github_app_flutter/widget/GSYTabBarWidget.dart';
 import 'package:gsy_github_app_flutter/widget/GSYTitleBar.dart';
 import 'package:gsy_github_app_flutter/widget/ReposHeaderItem.dart';
 
-/**
- * 仓库详情
- * Created by guoshuyu
- * Date: 2018-07-18
- */
+/// 仓库详情
+/// Created by guoshuyu
+/// Date: 2018-07-18
 class RepositoryDetailPage extends StatefulWidget {
   final String userName;
 
@@ -26,7 +24,8 @@ class RepositoryDetailPage extends StatefulWidget {
   RepositoryDetailPage(this.userName, this.reposName);
 
   @override
-  _RepositoryDetailPageState createState() => _RepositoryDetailPageState(userName, reposName);
+  _RepositoryDetailPageState createState() =>
+      _RepositoryDetailPageState(userName, reposName);
 }
 
 class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
@@ -40,17 +39,21 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
 
   final TarWidgetControl tarBarControl = new TarWidgetControl();
 
-  final ReposDetailParentControl reposDetailParentControl = new ReposDetailParentControl("master");
+  final ReposDetailParentControl reposDetailParentControl =
+      new ReposDetailParentControl("master");
 
   final PageController topPageControl = new PageController();
 
   final OptionControl titleOptionControl = new OptionControl();
 
-  GlobalKey<RepositoryDetailFileListPageState> fileListKey = new GlobalKey<RepositoryDetailFileListPageState>();
+  GlobalKey<RepositoryDetailFileListPageState> fileListKey =
+      new GlobalKey<RepositoryDetailFileListPageState>();
 
-  GlobalKey<ReposDetailInfoPageState> infoListKey = new GlobalKey<ReposDetailInfoPageState>();
+  GlobalKey<ReposDetailInfoPageState> infoListKey =
+      new GlobalKey<ReposDetailInfoPageState>();
 
-  GlobalKey<RepositoryDetailReadmePageState> readmeKey = new GlobalKey<RepositoryDetailReadmePageState>();
+  GlobalKey<RepositoryDetailReadmePageState> readmeKey =
+      new GlobalKey<RepositoryDetailReadmePageState>();
 
   List<String> branchList = new List();
 
@@ -60,9 +63,14 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
     var result = await ReposDao.getRepositoryStatusDao(userName, reposName);
     String watchText = result.data["watch"] ? "UnWatch" : "Watch";
     String starText = result.data["star"] ? "UnStar" : "Star";
-    IconData watchIcon = result.data["watch"] ? GSYICons.REPOS_ITEM_WATCHED : GSYICons.REPOS_ITEM_WATCH;
-    IconData starIcon = result.data["star"] ? GSYICons.REPOS_ITEM_STARED : GSYICons.REPOS_ITEM_STAR;
-    BottomStatusModel model = new BottomStatusModel(watchText, starText, watchIcon, starIcon, result.data["watch"], result.data["star"]);
+    IconData watchIcon = result.data["watch"]
+        ? GSYICons.REPOS_ITEM_WATCHED
+        : GSYICons.REPOS_ITEM_WATCH;
+    IconData starIcon = result.data["star"]
+        ? GSYICons.REPOS_ITEM_STARED
+        : GSYICons.REPOS_ITEM_STAR;
+    BottomStatusModel model = new BottomStatusModel(watchText, starText,
+        watchIcon, starIcon, result.data["watch"], result.data["star"]);
     setState(() {
       bottomStatusModel = model;
       tarBarControl.footerButton = _getBottomWidget();
@@ -82,7 +90,6 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
     this._getReposStatus();
   }
 
-
   _renderBottomItem(var text, var icon, var onPressed) {
     return new FlatButton(
         onPressed: onPressed,
@@ -101,16 +108,22 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
     List<Widget> bottomWidget = (bottomStatusModel == null)
         ? []
         : <Widget>[
-            _renderBottomItem(bottomStatusModel.starText, bottomStatusModel.starIcon, () {
+            _renderBottomItem(
+                bottomStatusModel.starText, bottomStatusModel.starIcon, () {
               CommonUtils.showLoadingDialog(context);
-              return ReposDao.doRepositoryStarDao(userName, reposName, bottomStatusModel.star).then((result) {
+              return ReposDao.doRepositoryStarDao(
+                      userName, reposName, bottomStatusModel.star)
+                  .then((result) {
                 _refresh();
                 Navigator.pop(context);
               });
             }),
-            _renderBottomItem(bottomStatusModel.watchText, bottomStatusModel.watchIcon, () {
+            _renderBottomItem(
+                bottomStatusModel.watchText, bottomStatusModel.watchIcon, () {
               CommonUtils.showLoadingDialog(context);
-              return ReposDao.doRepositoryWatchDao(userName, reposName, bottomStatusModel.watch).then((result) {
+              return ReposDao.doRepositoryWatchDao(
+                      userName, reposName, bottomStatusModel.watch)
+                  .then((result) {
                 _refresh();
                 Navigator.pop(context);
               });
@@ -159,7 +172,8 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
   _getMoreOtherItem() {
     return [
       ///Release Page
-      new GSYOptionModel(CommonUtils.getLocale(context).repos_option_release, CommonUtils.getLocale(context).repos_option_release, (model) {
+      new GSYOptionModel(CommonUtils.getLocale(context).repos_option_release,
+          CommonUtils.getLocale(context).repos_option_release, (model) {
         String releaseUrl = "";
         String tagUrl = "";
         if (infoListKey == null || infoListKey.currentState == null) {
@@ -169,29 +183,37 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
           releaseUrl = infoListKey.currentState.repository == null
               ? GSYConstant.app_default_share_url
               : infoListKey.currentState.repository.htmlUrl + "/releases";
-          tagUrl =
-              infoListKey.currentState.repository == null ? GSYConstant.app_default_share_url : infoListKey.currentState.repository.htmlUrl + "/tags";
+          tagUrl = infoListKey.currentState.repository == null
+              ? GSYConstant.app_default_share_url
+              : infoListKey.currentState.repository.htmlUrl + "/tags";
         }
-        NavigatorUtils.goReleasePage(context, userName, reposName, releaseUrl, tagUrl);
-      }),      ///Branch Page
-      new GSYOptionModel(CommonUtils.getLocale(context).repos_option_branch, CommonUtils.getLocale(context).repos_option_branch, (model) {
-          if(branchList.length == 0) {
-            return;
-          }
-          CommonUtils.showCommitOptionDialog(context, branchList, (value){
-            setState(() {
-              reposDetailParentControl.currentBranch = branchList[value];
-            });
-            if (infoListKey.currentState != null && infoListKey.currentState.mounted) {
-              infoListKey.currentState.showRefreshLoading();
-            }
-            if (fileListKey.currentState != null && fileListKey.currentState.mounted) {
-              fileListKey.currentState.showRefreshLoading();
-            }
-            if (readmeKey.currentState != null && readmeKey.currentState.mounted) {
-              readmeKey.currentState.refreshReadme();
-            }
+        NavigatorUtils.goReleasePage(
+            context, userName, reposName, releaseUrl, tagUrl);
+      }),
+
+      ///Branch Page
+      new GSYOptionModel(CommonUtils.getLocale(context).repos_option_branch,
+          CommonUtils.getLocale(context).repos_option_branch, (model) {
+        if (branchList.length == 0) {
+          return;
+        }
+        CommonUtils.showCommitOptionDialog(context, branchList, (value) {
+          setState(() {
+            reposDetailParentControl.currentBranch = branchList[value];
           });
+          if (infoListKey.currentState != null &&
+              infoListKey.currentState.mounted) {
+            infoListKey.currentState.showRefreshLoading();
+          }
+          if (fileListKey.currentState != null &&
+              fileListKey.currentState.mounted) {
+            fileListKey.currentState.showRefreshLoading();
+          }
+          if (readmeKey.currentState != null &&
+              readmeKey.currentState.mounted) {
+            readmeKey.currentState.refreshReadme();
+          }
+        });
       }),
     ];
   }
@@ -205,16 +227,23 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget widget = new GSYCommonOptionWidget(titleOptionControl, otherList: _getMoreOtherItem());
+    Widget widget = new GSYCommonOptionWidget(titleOptionControl,
+        otherList: _getMoreOtherItem());
     return new GSYTabBarWidget(
       type: GSYTabBarWidget.TOP_TAB,
       tarWidgetControl: tarBarControl,
       tabItems: _renderTabItem(),
       tabViews: [
-        new ReposDetailInfoPage(userName, reposName, reposDetailParentControl, titleOptionControl, key: infoListKey),
-        new RepositoryDetailReadmePage(userName, reposName, reposDetailParentControl, key: readmeKey),
+        new ReposDetailInfoPage(
+            userName, reposName, reposDetailParentControl, titleOptionControl,
+            key: infoListKey),
+        new RepositoryDetailReadmePage(
+            userName, reposName, reposDetailParentControl,
+            key: readmeKey),
         new RepositoryDetailIssuePage(userName, reposName),
-        new RepositoryDetailFileListPage(userName, reposName, reposDetailParentControl, key: fileListKey),
+        new RepositoryDetailFileListPage(
+            userName, reposName, reposDetailParentControl,
+            key: fileListKey),
       ],
       topPageControl: topPageControl,
       backgroundColor: GSYColors.primarySwatch,
@@ -238,7 +267,8 @@ class BottomStatusModel {
   final bool star;
   final bool watch;
 
-  BottomStatusModel(this.watchText, this.starText, this.watchIcon, this.starIcon, this.watch, this.star);
+  BottomStatusModel(this.watchText, this.starText, this.watchIcon,
+      this.starIcon, this.watch, this.star);
 }
 
 class ReposDetailParentControl {

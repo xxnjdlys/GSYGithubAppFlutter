@@ -35,7 +35,12 @@ class GSYState {
   Locale platformLocale;
 
   ///构造方法
-  GSYState({this.userInfo, this.eventList, this.trendList, this.themeData, this.locale});
+  GSYState(
+      {this.userInfo,
+      this.eventList,
+      this.trendList,
+      this.themeData,
+      this.locale});
 }
 
 ///创建 Reducer

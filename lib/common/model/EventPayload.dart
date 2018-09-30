@@ -13,7 +13,6 @@ part 'EventPayload.g.dart';
 
 @JsonSerializable()
 class EventPayload extends Object with _$EventPayloadSerializerMixin {
-
   @JsonKey(name: "push_id")
   int pushId;
   int size;
@@ -39,5 +38,6 @@ class EventPayload extends Object with _$EventPayloadSerializerMixin {
 
   EventPayload();
 
-  factory EventPayload.fromJson(Map<String, dynamic> json) => _$EventPayloadFromJson(json);
+  factory EventPayload.fromJson(Map<String, dynamic> json) =>
+      _$EventPayloadFromJson(json);
 }

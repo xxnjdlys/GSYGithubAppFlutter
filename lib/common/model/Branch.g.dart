@@ -14,9 +14,13 @@ Branch _$BranchFromJson(Map<String, dynamic> json) => new Branch(
 
 abstract class _$BranchSerializerMixin {
   String get name;
+
   String get tarballUrl;
+
   String get zipballUrl;
+
   bool get isBranch;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name,
         'tarballUrl': tarballUrl,

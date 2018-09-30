@@ -28,16 +28,27 @@ CommitComment _$CommitCommentFromJson(Map<String, dynamic> json) =>
 
 abstract class _$CommitCommentSerializerMixin {
   int get id;
+
   String get body;
+
   String get path;
+
   int get position;
+
   int get line;
+
   String get commitId;
+
   DateTime get createdAt;
+
   DateTime get updatedAt;
+
   String get htmlUrl;
+
   String get url;
+
   User get user;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'body': body,

@@ -36,15 +36,25 @@ PushCommit _$PushCommitFromJson(Map<String, dynamic> json) => new PushCommit(
 
 abstract class _$PushCommitSerializerMixin {
   List<CommitFile> get files;
+
   CommitStats get stats;
+
   String get sha;
+
   String get url;
+
   String get htmlUrl;
+
   String get commentsUrl;
+
   CommitGitInfo get commit;
+
   User get author;
+
   User get committer;
+
   List<RepoCommit> get parents;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'files': files,
         'stats': stats,

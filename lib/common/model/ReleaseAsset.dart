@@ -40,5 +40,6 @@ class ReleaseAsset extends Object with _$ReleaseAssetSerializerMixin {
     this.downloadUrl,
   );
 
-  factory ReleaseAsset.fromJson(Map<String, dynamic> json) => _$ReleaseAssetFromJson(json);
+  factory ReleaseAsset.fromJson(Map<String, dynamic> json) =>
+      _$ReleaseAssetFromJson(json);
 }

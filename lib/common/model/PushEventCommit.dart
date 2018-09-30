@@ -24,5 +24,6 @@ class PushEventCommit extends Object with _$PushEventCommitSerializerMixin {
     this.url,
   );
 
-  factory PushEventCommit.fromJson(Map<String, dynamic> json) => _$PushEventCommitFromJson(json);
+  factory PushEventCommit.fromJson(Map<String, dynamic> json) =>
+      _$PushEventCommitFromJson(json);
 }

@@ -12,24 +12,31 @@ import 'package:gsy_github_app_flutter/widget/GSYListState.dart';
 import 'package:gsy_github_app_flutter/widget/UserHeader.dart';
 import 'package:gsy_github_app_flutter/widget/UserItem.dart';
 
-/**
- * Created by guoshuyu
- * Date: 2018-08-30
- */
+/// Created by guoshuyu
+/// Date: 2018-08-30
 
-abstract class BasePersonState<T extends StatefulWidget> extends GSYListState<T> {
-
+abstract class BasePersonState<T extends StatefulWidget>
+    extends GSYListState<T> {
   final List<UserOrg> orgList = new List();
 
   @protected
-  renderItem(index, User userInfo, String beStaredCount, Color notifyColor, VoidCallback refreshCallBack, List<UserOrg> orgList) {
+  renderItem(index, User userInfo, String beStaredCount, Color notifyColor,
+      VoidCallback refreshCallBack, List<UserOrg> orgList) {
     if (index == 0) {
-      return new UserHeaderItem(userInfo, beStaredCount, Theme.of(context).primaryColor,
-          notifyColor: notifyColor, refreshCallBack: refreshCallBack, orgList: orgList);
+      return new UserHeaderItem(
+          userInfo, beStaredCount, Theme.of(context).primaryColor,
+          notifyColor: notifyColor,
+          refreshCallBack: refreshCallBack,
+          orgList: orgList);
     }
     if (userInfo.type == "Organization") {
-      return new UserItem(UserItemViewModel.fromMap(pullLoadWidgetControl.dataList[index - 1]), onPressed: () {
-        NavigatorUtils.goPerson(context, UserItemViewModel.fromMap(pullLoadWidgetControl.dataList[index - 1]).userName);
+      return new UserItem(
+          UserItemViewModel.fromMap(pullLoadWidgetControl.dataList[index - 1]),
+          onPressed: () {
+        NavigatorUtils.goPerson(
+            context,
+            UserItemViewModel.fromMap(pullLoadWidgetControl.dataList[index - 1])
+                .userName);
       });
     } else {
       Event event = pullLoadWidgetControl.dataList[index - 1];
@@ -70,5 +77,4 @@ abstract class BasePersonState<T extends StatefulWidget> extends GSYListState<T>
       });
     }
   }
-
 }

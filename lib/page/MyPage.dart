@@ -1,30 +1,18 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gsy_github_app_flutter/common/dao/EventDao.dart';
 import 'package:gsy_github_app_flutter/common/dao/ReposDao.dart';
 import 'package:gsy_github_app_flutter/common/dao/UserDao.dart';
-import 'package:gsy_github_app_flutter/common/model/Event.dart';
-import 'package:gsy_github_app_flutter/common/model/UserOrg.dart';
 import 'package:gsy_github_app_flutter/common/redux/GSYState.dart';
 import 'package:gsy_github_app_flutter/common/redux/UserRedux.dart';
 import 'package:gsy_github_app_flutter/common/style/GSYStyle.dart';
-import 'package:gsy_github_app_flutter/common/utils/EventUtils.dart';
-import 'package:gsy_github_app_flutter/common/utils/NavigatorUtils.dart';
 import 'package:gsy_github_app_flutter/widget/BasePersonState.dart';
-import 'package:gsy_github_app_flutter/widget/EventItem.dart';
-import 'package:gsy_github_app_flutter/widget/GSYListState.dart';
 import 'package:gsy_github_app_flutter/widget/GSYPullLoadWidget.dart';
-import 'package:gsy_github_app_flutter/widget/UserHeader.dart';
-import 'package:gsy_github_app_flutter/widget/UserItem.dart';
 import 'package:redux/redux.dart';
 
-/**
- * 主页我的tab页
- * Created by guoshuyu
- * Date: 2018-07-16
- */
+/// 主页我的tab页
+/// Created by guoshuyu
+/// Date: 2018-07-16
 class MyPage extends StatefulWidget {
   @override
   _MyPageState createState() => _MyPageState();
@@ -35,8 +23,6 @@ class _MyPageState extends BasePersonState<MyPage> {
   String beStaredCount = '---';
 
   Color notifyColor = const Color(GSYColors.subTextColor);
-
-
 
   Store<GSYState> _getStore() {
     return StoreProvider.of(context);
@@ -72,7 +58,6 @@ class _MyPageState extends BasePersonState<MyPage> {
     });
   }
 
-
   @override
   bool get wantKeepAlive => true;
 
@@ -86,7 +71,8 @@ class _MyPageState extends BasePersonState<MyPage> {
     if (getUserType() == "Organization") {
       return await UserDao.getMemberDao(_getUserName(), page);
     }
-    return await EventDao.getEventDao(_getUserName(), page: page, needDb: page <= 1);
+    return await EventDao.getEventDao(_getUserName(),
+        page: page, needDb: page <= 1);
   }
 
   @override
@@ -136,7 +122,8 @@ class _MyPageState extends BasePersonState<MyPage> {
       builder: (context, store) {
         return GSYPullLoadWidget(
           pullLoadWidgetControl,
-          (BuildContext context, int index) => renderItem(index, store.state.userInfo, beStaredCount, notifyColor, () {
+          (BuildContext context, int index) => renderItem(
+                  index, store.state.userInfo, beStaredCount, notifyColor, () {
                 _refreshNotify();
               }, orgList),
           handleRefresh,

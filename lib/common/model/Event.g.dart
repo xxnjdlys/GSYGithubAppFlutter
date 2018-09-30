@@ -28,13 +28,21 @@ Event _$EventFromJson(Map<String, dynamic> json) => new Event(
 
 abstract class _$EventSerializerMixin {
   String get id;
+
   String get type;
+
   User get actor;
+
   Repository get repo;
+
   User get org;
+
   EventPayload get payload;
+
   bool get isPublic;
+
   DateTime get createdAt;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'type': type,

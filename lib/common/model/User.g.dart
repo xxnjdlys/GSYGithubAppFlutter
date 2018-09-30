@@ -51,42 +51,79 @@ User _$UserFromJson(Map<String, dynamic> json) => new User(
 
 abstract class _$UserSerializerMixin {
   String get login;
+
   int get id;
+
   String get node_id;
+
   String get avatar_url;
+
   String get gravatar_id;
+
   String get url;
+
   String get html_url;
+
   String get followers_url;
+
   String get following_url;
+
   String get gists_url;
+
   String get starred_url;
+
   String get subscriptions_url;
+
   String get organizations_url;
+
   String get repos_url;
+
   String get events_url;
+
   String get received_events_url;
+
   String get type;
+
   bool get site_admin;
+
   String get name;
+
   String get company;
+
   String get blog;
+
   String get location;
+
   String get email;
+
   String get starred;
+
   String get bio;
+
   int get public_repos;
+
   int get public_gists;
+
   int get followers;
+
   int get following;
+
   DateTime get created_at;
+
   DateTime get updated_at;
+
   int get private_gists;
+
   int get total_private_repos;
+
   int get owned_private_repos;
+
   int get disk_usage;
+
   int get collaborators;
+
   bool get two_factor_authentication;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'login': login,
         'id': id,

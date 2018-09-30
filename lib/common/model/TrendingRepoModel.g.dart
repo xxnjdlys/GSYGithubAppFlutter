@@ -22,16 +22,27 @@ TrendingRepoModel _$TrendingRepoModelFromJson(Map<String, dynamic> json) =>
 
 abstract class _$TrendingRepoModelSerializerMixin {
   String get fullName;
+
   String get url;
+
   String get description;
+
   String get language;
+
   String get meta;
+
   List<String> get contributors;
+
   String get contributorsUrl;
+
   String get starCount;
+
   String get forkCount;
+
   String get name;
+
   String get reposName;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'fullName': fullName,
         'url': url,

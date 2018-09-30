@@ -15,5 +15,6 @@ class CommitStats extends Object with _$CommitStatsSerializerMixin {
 
   CommitStats(this.total, this.additions, this.deletions);
 
-  factory CommitStats.fromJson(Map<String, dynamic> json) => _$CommitStatsFromJson(json);
+  factory CommitStats.fromJson(Map<String, dynamic> json) =>
+      _$CommitStatsFromJson(json);
 }

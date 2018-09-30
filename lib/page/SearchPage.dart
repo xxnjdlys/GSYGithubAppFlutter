@@ -12,10 +12,8 @@ import 'package:gsy_github_app_flutter/widget/GSYSelectItemWidget.dart';
 import 'package:gsy_github_app_flutter/widget/ReposItem.dart';
 import 'package:gsy_github_app_flutter/widget/UserItem.dart';
 
-/**
- * Created by guoshuyu
- * on 2018/7/24.
- */
+/// Created by guoshuyu
+/// on 2018/7/24.
 class SearchPage extends StatefulWidget {
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -32,13 +30,15 @@ class _SearchPageState extends GSYListState<SearchPage> {
   _renderEventItem(index) {
     var data = pullLoadWidgetControl.dataList[index];
     if (selectIndex == 0) {
-      ReposViewModel reposViewModel =  ReposViewModel.fromMap(data);
+      ReposViewModel reposViewModel = ReposViewModel.fromMap(data);
       return new ReposItem(reposViewModel, onPressed: () {
-        NavigatorUtils.goReposDetail(context, reposViewModel.ownerName, reposViewModel.repositoryName);
+        NavigatorUtils.goReposDetail(
+            context, reposViewModel.ownerName, reposViewModel.repositoryName);
       });
     } else if (selectIndex == 1) {
       return new UserItem(UserItemViewModel.fromMap(data), onPressed: () {
-        NavigatorUtils.goPerson(context, UserItemViewModel.fromMap(data).userName);
+        NavigatorUtils.goPerson(
+            context, UserItemViewModel.fromMap(data).userName);
       });
     }
   }
@@ -49,7 +49,8 @@ class _SearchPageState extends GSYListState<SearchPage> {
   }
 
   _getDataLogic() async {
-    return await ReposDao.searchRepositoryDao(searchText, language, type, sort, selectIndex == 0 ? null : 'user', page, Config.PAGE_SIZE);
+    return await ReposDao.searchRepositoryDao(searchText, language, type, sort,
+        selectIndex == 0 ? null : 'user', page, Config.PAGE_SIZE);
   }
 
   _clearSelect(List<FilterModel> list) {
@@ -149,7 +150,8 @@ class SearchBottom extends StatelessWidget implements PreferredSizeWidget {
 
   final VoidCallback onSubmitPressed;
 
-  SearchBottom(this.onChanged, this.onSubmitted, this.onSubmitPressed, this.selectItemChanged);
+  SearchBottom(this.onChanged, this.onSubmitted, this.onSubmitPressed,
+      this.selectItemChanged);
 
   @override
   Widget build(BuildContext context) {

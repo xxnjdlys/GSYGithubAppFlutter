@@ -8,7 +8,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'RepositoryPermissions.g.dart';
 
 @JsonSerializable()
-class RepositoryPermissions extends Object with _$RepositoryPermissionsSerializerMixin {
+class RepositoryPermissions extends Object
+    with _$RepositoryPermissionsSerializerMixin {
   bool admin;
   bool push;
   bool pull;
@@ -19,5 +20,6 @@ class RepositoryPermissions extends Object with _$RepositoryPermissionsSerialize
     this.pull,
   );
 
-  factory RepositoryPermissions.fromJson(Map<String, dynamic> json) => _$RepositoryPermissionsFromJson(json);
+  factory RepositoryPermissions.fromJson(Map<String, dynamic> json) =>
+      _$RepositoryPermissionsFromJson(json);
 }

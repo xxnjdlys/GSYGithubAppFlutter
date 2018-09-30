@@ -36,8 +36,6 @@ class Issue extends Object with _$IssueSerializerMixin {
   @JsonKey(name: "closed_by")
   User closeBy;
 
-
-
   Issue(
     this.id,
     this.number,

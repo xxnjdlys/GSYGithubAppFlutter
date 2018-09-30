@@ -58,38 +58,71 @@ Repository _$RepositoryFromJson(Map<String, dynamic> json) => new Repository(
 
 abstract class _$RepositorySerializerMixin {
   int get id;
+
   int get size;
+
   String get name;
+
   String get fullName;
+
   String get htmlUrl;
+
   String get description;
+
   String get language;
+
   String get defaultBranch;
+
   DateTime get createdAt;
+
   DateTime get updatedAt;
+
   DateTime get pushedAt;
+
   String get gitUrl;
+
   String get sshUrl;
+
   String get cloneUrl;
+
   String get svnUrl;
+
   int get stargazersCount;
+
   int get watchersCount;
+
   int get forksCount;
+
   int get openIssuesCount;
+
   int get subscribersCount;
+
   bool get private;
+
   bool get fork;
+
   bool get hasIssues;
+
   bool get hasProjects;
+
   bool get hasDownloads;
+
   bool get hasWiki;
+
   bool get hasPages;
+
   User get owner;
+
   License get license;
+
   Repository get parent;
+
   RepositoryPermissions get permissions;
+
   List<String> get topics;
+
   int get allIssueCount;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'size': size,

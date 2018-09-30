@@ -19,14 +19,23 @@ FileModel _$FileModelFromJson(Map<String, dynamic> json) => new FileModel(
 
 abstract class _$FileModelSerializerMixin {
   String get name;
+
   String get path;
+
   String get sha;
+
   int get size;
+
   String get url;
+
   String get htmlUrl;
+
   String get gitUrl;
+
   String get downloadUrl;
+
   String get type;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name,
         'path': path,

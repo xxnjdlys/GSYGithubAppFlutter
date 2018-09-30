@@ -12,8 +12,11 @@ NotificationSubject _$NotificationSubjectFromJson(Map<String, dynamic> json) =>
 
 abstract class _$NotificationSubjectSerializerMixin {
   String get title;
+
   String get url;
+
   String get type;
+
   Map<String, dynamic> toJson() =>
       <String, dynamic>{'title': title, 'url': url, 'type': type};
 }

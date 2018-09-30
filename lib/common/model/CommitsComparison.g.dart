@@ -33,13 +33,21 @@ CommitsComparison _$CommitsComparisonFromJson(Map<String, dynamic> json) =>
 
 abstract class _$CommitsComparisonSerializerMixin {
   String get url;
+
   String get htmlUrl;
+
   RepoCommit get baseCommit;
+
   RepoCommit get mergeBaseCommit;
+
   String get status;
+
   int get totalCommits;
+
   List<RepoCommit> get commits;
+
   List<CommitFile> get files;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'url': url,
         'html_url': htmlUrl,

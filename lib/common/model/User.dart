@@ -88,5 +88,4 @@ class User extends Object with _$UserSerializerMixin {
 
   // 命名构造函数
   User.empty();
-
 }

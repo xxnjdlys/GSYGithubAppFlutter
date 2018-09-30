@@ -25,5 +25,6 @@ class CommitGitInfo extends Object with _$CommitGitInfoSerializerMixin {
     this.committer,
   );
 
-  factory CommitGitInfo.fromJson(Map<String, dynamic> json) => _$CommitGitInfoFromJson(json);
+  factory CommitGitInfo.fromJson(Map<String, dynamic> json) =>
+      _$CommitGitInfoFromJson(json);
 }

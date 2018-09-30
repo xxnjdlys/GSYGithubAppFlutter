@@ -1,4 +1,3 @@
-
 import 'package:gsy_github_app_flutter/common/model/User.dart';
 import 'package:redux/redux.dart';
 
@@ -7,6 +6,7 @@ import 'package:redux/redux.dart';
  * Created by guoshuyu
  * Date: 2018-07-16
  */
+
 /// redux 的 combineReducers, 通过 TypedReducer 将 UpdateUserAction 与 reducers 关联起来
 final UserReducer = combineReducers<User>([
   TypedReducer<User, UpdateUserAction>(_updateLoaded),
@@ -24,5 +24,6 @@ User _updateLoaded(User user, action) {
 ///类名随你喜欢定义，只要通过上面TypedReducer绑定就好
 class UpdateUserAction {
   final User userInfo;
+
   UpdateUserAction(this.userInfo);
 }

@@ -14,11 +14,9 @@ import 'package:gsy_github_app_flutter/widget/GSYPullLoadWidget.dart';
 import 'package:gsy_github_app_flutter/widget/ReposItem.dart';
 import 'package:redux/redux.dart';
 
-/**
- * 主页趋势tab页
- * Created by guoshuyu
- * Date: 2018-07-16
- */
+/// 主页趋势tab页
+/// Created by guoshuyu
+/// Date: 2018-07-16
 class TrendPage extends StatefulWidget {
   @override
   _TrendPageState createState() => _TrendPageState();
@@ -32,7 +30,8 @@ class _TrendPageState extends GSYListState<TrendPage> {
   _renderItem(e) {
     ReposViewModel reposViewModel = ReposViewModel.fromTrendMap(e);
     return new ReposItem(reposViewModel, onPressed: () {
-      NavigatorUtils.goReposDetail(context, reposViewModel.ownerName, reposViewModel.repositoryName);
+      NavigatorUtils.goReposDetail(
+          context, reposViewModel.ownerName, reposViewModel.repositoryName);
     });
   }
 
@@ -47,12 +46,15 @@ class _TrendPageState extends GSYListState<TrendPage> {
         borderRadius: BorderRadius.all(Radius.circular(4.0)),
       ),
       child: new Padding(
-        padding: new EdgeInsets.only(left: 0.0, top: 5.0, right: 0.0, bottom: 5.0),
+        padding:
+            new EdgeInsets.only(left: 0.0, top: 5.0, right: 0.0, bottom: 5.0),
         child: new Row(
           children: <Widget>[
-            _renderHeaderPopItem(selectTime.name, trendTime(context), (TrendTypeModel result) {
-              if(isLoading) {
-                Fluttertoast.showToast(msg: CommonUtils.getLocale(context).loading_text);
+            _renderHeaderPopItem(selectTime.name, trendTime(context),
+                (TrendTypeModel result) {
+              if (isLoading) {
+                Fluttertoast.showToast(
+                    msg: CommonUtils.getLocale(context).loading_text);
                 return;
               }
               setState(() {
@@ -60,10 +62,13 @@ class _TrendPageState extends GSYListState<TrendPage> {
               });
               showRefreshLoading();
             }),
-            new Container(height: 10.0, width: 0.5, color: Color(GSYColors.white)),
-            _renderHeaderPopItem(selectType.name, trendType(context), (TrendTypeModel result) {
-              if(isLoading) {
-                Fluttertoast.showToast(msg: CommonUtils.getLocale(context).loading_text);
+            new Container(
+                height: 10.0, width: 0.5, color: Color(GSYColors.white)),
+            _renderHeaderPopItem(selectType.name, trendType(context),
+                (TrendTypeModel result) {
+              if (isLoading) {
+                Fluttertoast.showToast(
+                    msg: CommonUtils.getLocale(context).loading_text);
                 return;
               }
               setState(() {
@@ -77,10 +82,12 @@ class _TrendPageState extends GSYListState<TrendPage> {
     );
   }
 
-  _renderHeaderPopItem(String data, List<TrendTypeModel> list, PopupMenuItemSelected<TrendTypeModel> onSelected) {
+  _renderHeaderPopItem(String data, List<TrendTypeModel> list,
+      PopupMenuItemSelected<TrendTypeModel> onSelected) {
     return new Expanded(
       child: new PopupMenuButton<TrendTypeModel>(
-        child: new Center(child: new Text(data, style: GSYConstant.middleTextWhite)),
+        child: new Center(
+            child: new Text(data, style: GSYConstant.middleTextWhite)),
         onSelected: onSelected,
         itemBuilder: (BuildContext context) {
           return _renderHeaderPopItemChild(list);
@@ -107,7 +114,8 @@ class _TrendPageState extends GSYListState<TrendPage> {
     }
     isLoading = true;
     page = 1;
-    await ReposDao.getTrendDao(_getStore(), since: selectTime.value, languageType: selectType.value);
+    await ReposDao.getTrendDao(_getStore(),
+        since: selectTime.value, languageType: selectType.value);
     setState(() {
       pullLoadWidgetControl.needLoadMore = false;
     });
@@ -166,7 +174,8 @@ class _TrendPageState extends GSYListState<TrendPage> {
           ),
           body: GSYPullLoadWidget(
             pullLoadWidgetControl,
-            (BuildContext context, int index) => _renderItem(pullLoadWidgetControl.dataList[index]),
+            (BuildContext context, int index) =>
+                _renderItem(pullLoadWidgetControl.dataList[index]),
             handleRefresh,
             onLoadMore,
             refreshKey: refreshIndicatorKey,

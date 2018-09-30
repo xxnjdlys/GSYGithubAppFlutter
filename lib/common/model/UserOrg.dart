@@ -47,7 +47,8 @@ class UserOrg extends Object with _$UserOrgSerializerMixin {
   /// A necessary factory constructor for creating a new User instance
   /// from a map. We pass the map to the generated _$UserFromJson constructor.
   /// The constructor is named after the source class, in this case User.
-  factory UserOrg.fromJson(Map<String, dynamic> json) => _$UserOrgFromJson(json);
+  factory UserOrg.fromJson(Map<String, dynamic> json) =>
+      _$UserOrgFromJson(json);
 
   // 命名构造函数
   UserOrg.empty();

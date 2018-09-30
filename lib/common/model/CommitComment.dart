@@ -40,5 +40,6 @@ class CommitComment extends Object with _$CommitCommentSerializerMixin {
     this.user,
   );
 
-  factory CommitComment.fromJson(Map<String, dynamic> json) => _$CommitCommentFromJson(json);
+  factory CommitComment.fromJson(Map<String, dynamic> json) =>
+      _$CommitCommentFromJson(json);
 }

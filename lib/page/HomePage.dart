@@ -12,11 +12,9 @@ import 'package:gsy_github_app_flutter/widget/GSYTabBarWidget.dart';
 import 'package:gsy_github_app_flutter/widget/GSYTitleBar.dart';
 import 'package:gsy_github_app_flutter/widget/HomeDrawer.dart';
 
-/**
- * 主页
- * Created by guoshuyu
- * Date: 2018-07-16
- */
+/// 主页
+/// Created by guoshuyu
+/// Date: 2018-07-16
 class HomePage extends StatelessWidget {
   static final String sName = "home";
 
@@ -27,7 +25,9 @@ class HomePage extends StatelessWidget {
         builder: (context) => new AlertDialog(
               content: new Text(CommonUtils.getLocale(context).app_back_tip),
               actions: <Widget>[
-                new FlatButton(onPressed: () => Navigator.of(context).pop(false), child: new Text(CommonUtils.getLocale(context).app_cancel)),
+                new FlatButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: new Text(CommonUtils.getLocale(context).app_cancel)),
                 new FlatButton(
                     onPressed: () {
                       Navigator.of(context).pop(true);

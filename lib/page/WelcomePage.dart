@@ -9,11 +9,9 @@ import 'package:gsy_github_app_flutter/common/utils/CommonUtils.dart';
 import 'package:gsy_github_app_flutter/common/utils/NavigatorUtils.dart';
 import 'package:redux/redux.dart';
 
-/**
- * 欢迎页
- * Created by guoshuyu
- * Date: 2018-07-16
- */
+/// 欢迎页
+/// Created by guoshuyu
+/// Date: 2018-07-16
 
 class WelcomePage extends StatefulWidget {
   static final String sName = "/";
@@ -22,17 +20,17 @@ class WelcomePage extends StatefulWidget {
   _WelcomePageState createState() => _WelcomePageState();
 }
 
-class _WelcomePageState extends State<WelcomePage>  {
-
+class _WelcomePageState extends State<WelcomePage> {
   bool hadInit = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if(hadInit) {
+    if (hadInit) {
       return;
     }
     hadInit = true;
+
     ///防止多次进入
     Store<GSYState> store = StoreProvider.of(context);
     CommonUtils.initStatusBarHeight(context);
@@ -55,11 +53,11 @@ class _WelcomePageState extends State<WelcomePage>  {
         return new Container(
           color: Color(GSYColors.white),
           child: new Center(
-            child: new Image(image: new AssetImage('static/images/welcome.png')),
+            child:
+                new Image(image: new AssetImage('static/images/welcome.png')),
           ),
         );
       },
     );
   }
-
 }

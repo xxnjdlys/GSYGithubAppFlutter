@@ -48,20 +48,21 @@ class GSYTabBarWidget extends StatefulWidget {
 
   @override
   _GSYTabBarState createState() => new _GSYTabBarState(
-    type,
-    tabViews,
-    indicatorColor,
-    title,
-    drawer,
-    floatingActionButton,
-    tarWidgetControl,
-    topPageControl,
-    onPageChanged,
-  );
+        type,
+        tabViews,
+        indicatorColor,
+        title,
+        drawer,
+        floatingActionButton,
+        tarWidgetControl,
+        topPageControl,
+        onPageChanged,
+      );
 }
 
 // ignore: mixin_inherits_from_not_object
-class _GSYTabBarState extends State<GSYTabBarWidget> with SingleTickerProviderStateMixin {
+class _GSYTabBarState extends State<GSYTabBarWidget>
+    with SingleTickerProviderStateMixin {
   final int _type;
 
   final List<Widget> _tabViews;
@@ -81,23 +82,24 @@ class _GSYTabBarState extends State<GSYTabBarWidget> with SingleTickerProviderSt
   final ValueChanged<int> _onPageChanged;
 
   _GSYTabBarState(
-      this._type,
-      this._tabViews,
-      this._indicatorColor,
-      this._title,
-      this._drawer,
-      this._floatingActionButton,
-      this._tarWidgetControl,
-      this._pageController,
-      this._onPageChanged,
-      ) : super();
+    this._type,
+    this._tabViews,
+    this._indicatorColor,
+    this._title,
+    this._drawer,
+    this._floatingActionButton,
+    this._tarWidgetControl,
+    this._pageController,
+    this._onPageChanged,
+  ) : super();
 
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(vsync: this, length: widget.tabItems.length);
+    _tabController =
+        new TabController(vsync: this, length: widget.tabItems.length);
   }
 
   ///整个页面dispose时，记得把控制器也dispose掉，释放内存
@@ -113,7 +115,8 @@ class _GSYTabBarState extends State<GSYTabBarWidget> with SingleTickerProviderSt
       ///顶部tab bar
       return new Scaffold(
         floatingActionButton: _floatingActionButton,
-        persistentFooterButtons: _tarWidgetControl == null ? [] : _tarWidgetControl.footerButton,
+        persistentFooterButtons:
+            _tarWidgetControl == null ? [] : _tarWidgetControl.footerButton,
         appBar: new AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: _title,
@@ -142,7 +145,7 @@ class _GSYTabBarState extends State<GSYTabBarWidget> with SingleTickerProviderSt
           title: _title,
         ),
         body: new TabBarView(
-          //TabBarView呈现内容，因此放到Scaffold的body中
+            //TabBarView呈现内容，因此放到Scaffold的body中
             controller: _tabController, //配置控制器
             children: _tabViews),
         bottomNavigationBar: new Material(

@@ -11,5 +11,6 @@ License _$LicenseFromJson(Map<String, dynamic> json) =>
 
 abstract class _$LicenseSerializerMixin {
   String get name;
+
   Map<String, dynamic> toJson() => <String, dynamic>{'name': name};
 }

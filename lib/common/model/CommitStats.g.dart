@@ -11,8 +11,11 @@ CommitStats _$CommitStatsFromJson(Map<String, dynamic> json) => new CommitStats(
 
 abstract class _$CommitStatsSerializerMixin {
   int get total;
+
   int get additions;
+
   int get deletions;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'total': total,
         'additions': additions,

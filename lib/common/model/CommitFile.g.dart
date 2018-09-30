@@ -20,15 +20,25 @@ CommitFile _$CommitFileFromJson(Map<String, dynamic> json) => new CommitFile(
 
 abstract class _$CommitFileSerializerMixin {
   String get sha;
+
   String get fileName;
+
   String get status;
+
   int get additions;
+
   int get deletions;
+
   int get changes;
+
   String get blobUrl;
+
   String get rawUrl;
+
   String get contentsUrl;
+
   String get patch;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'sha': sha,
         'filename': fileName,

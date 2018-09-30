@@ -28,13 +28,21 @@ RepoCommit _$RepoCommitFromJson(Map<String, dynamic> json) => new RepoCommit(
 
 abstract class _$RepoCommitSerializerMixin {
   String get sha;
+
   String get url;
+
   String get htmlUrl;
+
   String get commentsUrl;
+
   CommitGitInfo get commit;
+
   User get author;
+
   User get committer;
+
   List<RepoCommit> get parents;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'sha': sha,
         'url': url,

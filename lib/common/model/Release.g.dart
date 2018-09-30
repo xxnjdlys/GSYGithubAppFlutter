@@ -34,19 +34,33 @@ Release _$ReleaseFromJson(Map<String, dynamic> json) => new Release(
 
 abstract class _$ReleaseSerializerMixin {
   int get id;
+
   String get tagName;
+
   String get targetCommitish;
+
   String get name;
+
   String get body;
+
   String get bodyHtml;
+
   String get tarballUrl;
+
   String get zipballUrl;
+
   bool get draft;
+
   bool get preRelease;
+
   DateTime get createdAt;
+
   DateTime get publishedAt;
+
   User get author;
+
   List<ReleaseAsset> get assets;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'tag_name': tagName,

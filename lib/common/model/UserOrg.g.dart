@@ -22,17 +22,29 @@ UserOrg _$UserOrgFromJson(Map<String, dynamic> json) => new UserOrg(
 
 abstract class _$UserOrgSerializerMixin {
   String get login;
+
   int get id;
+
   String get url;
+
   String get description;
+
   String get nodeId;
+
   String get reposUrl;
+
   String get eventsUrl;
+
   String get hooksUrl;
+
   String get issuesUrl;
+
   String get membersUrl;
+
   String get publicMembersUrl;
+
   String get avatarUrl;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'login': login,
         'id': id,
